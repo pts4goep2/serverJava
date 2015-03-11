@@ -31,10 +31,11 @@ public class Clientontvangen {
             Socket s = new Socket("localhost", 8189);
             OutputStream outStream = s.getOutputStream();
             InputStream inStream = s.getInputStream();
-
+            
             // Let op: volgorde is van belang!
             ObjectOutputStream out = new ObjectOutputStream(outStream);
             ObjectInputStream in = new ObjectInputStream(inStream);
+            out.writeObject("Brandweer wagen Tilburg");
             String message = (String) in.readObject();
             System.out.println(message);
         } 
