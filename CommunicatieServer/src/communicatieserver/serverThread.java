@@ -38,6 +38,8 @@ public class serverThread implements Runnable
                 Socket incoming = s.accept();
                 System.out.println("connected");
                 Client client = new Client(incoming);
+                Thread t = new Thread(client);
+                t.start();
                 clients.put(client.getNaam(), client);
             }
         }

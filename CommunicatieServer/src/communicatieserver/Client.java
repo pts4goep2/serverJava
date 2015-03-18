@@ -21,15 +21,13 @@ import java.util.logging.Logger;
  *
  * @author Leo
  */
-public class Client
+public class Client implements Runnable
 {
-    private Socket incoming;
     private ObjectInputStream  in;
     private ObjectOutputStream out;
     private String naam;
     public Client(Socket incoming) throws IOException, ClassNotFoundException
     {
-        this.incoming = incoming;
         OutputStream outStream = incoming.getOutputStream();
         InputStream inStream = incoming.getInputStream();
 
@@ -55,5 +53,26 @@ public class Client
     public String getNaam()
     {
         return this.naam;
+    }
+
+    @Override
+    public void run() 
+    {
+        while(true)
+        {
+            try 
+            {
+                String message = (String) in.readObject();
+                System.out.println(message);
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            catch (ClassNotFoundException ex) 
+            {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

@@ -28,8 +28,11 @@ public class CommunicatieServer {
        CommunicatieServer server = new CommunicatieServer();
        Scanner input = new Scanner(System.in);
        System.out.println("Stuur een bericht: ");
-       String bericht = input.nextLine();
-       server.sendMessage(bericht, "Hallo");
+       while(true)
+       {
+           String bericht = input.nextLine();
+           server.sendMessage(bericht, "Hallo");
+       }
     }
     
     public CommunicatieServer() 
@@ -41,6 +44,7 @@ public class CommunicatieServer {
     
     public void sendMessage(String Message, String naam)
     {
+        System.out.println("ik stuur een bericht");
         clients = (Map<String, Client>) st.getClients();
         clients.get(naam).sendMessage(Message);
     }
