@@ -9,7 +9,8 @@ package communicatieserver;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +20,10 @@ import java.util.logging.Logger;
  */
 public class serverThread implements Runnable
 {
-    private ArrayList<Client> clients;
+    Map<String, Client> clients;
     public serverThread()
     {
-        clients = new ArrayList<>();
+        clients = new HashMap<String, Client>();
     }
     @Override
     public void run() 
@@ -36,7 +37,8 @@ public class serverThread implements Runnable
                 // wait for client connection         
                 Socket incoming = s.accept();
                 System.out.println("connected");
-                clients.add(new Client(incoming));
+                Client client = new Client(incoming);
+                clients.put(client.getNaam(), client);
             }
         }
         catch (IOException e)
@@ -49,7 +51,7 @@ public class serverThread implements Runnable
         }
     }
     
-    public ArrayList<Client> getClients()
+    public Map<String, Client> getClients()
     {
         return this.clients;
     }

@@ -51,4 +51,9 @@ public class Client
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
+    
+    public String getNaam()
+    {
+        return this.naam;
+    }
 }

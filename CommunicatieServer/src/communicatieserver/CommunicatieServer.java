@@ -7,6 +7,8 @@
 package communicatieserver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -18,7 +20,7 @@ public class CommunicatieServer {
     /**
      * @param args the command line arguments
      */
-    private ArrayList<Client> clients;
+    private Map<String, Client> clients;
     private serverThread st;
     
     public static void main(String[] args) 
@@ -27,22 +29,19 @@ public class CommunicatieServer {
        Scanner input = new Scanner(System.in);
        System.out.println("Stuur een bericht: ");
        String bericht = input.nextLine();
-       server.sendMessage(bericht);
+       server.sendMessage(bericht, "Hallo");
     }
     
     public CommunicatieServer() 
     {
-        this.clients = new ArrayList<>();
         st = new serverThread();
         Thread t = new Thread(st);
         t.start();
     }
     
-    public void sendMessage(String Message)
+    public void sendMessage(String Message, String naam)
     {
-        for(Client c : st.getClients())
-        {
-            c.sendMessage(Message);
-        }
+        clients = (Map<String, Client>) st.getClients();
+        clients.get(naam).sendMessage(Message);
     }
 }
