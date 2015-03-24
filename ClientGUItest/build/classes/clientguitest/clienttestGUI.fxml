@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication5.ClienttestGUIController">
+   <children>
+      <TextArea fx:id="input" layoutX="57.0" layoutY="215.0" prefHeight="114.0" prefWidth="364.0" />
+      <Button layoutX="462.0" layoutY="272.0" mnemonicParsing="false" onAction="#btnSend_Click" text="Send" />
+      <ListView fx:id="output" layoutX="75.0" layoutY="14.0" prefHeight="153.0" prefWidth="346.0" />
+   </children>
+</Pane>
