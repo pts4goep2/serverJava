@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientguitest;
+package javafxapplication5;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +18,9 @@ import javafx.stage.Stage;
 public class ClientGUItest extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("clienttestGUI.fxml"));
+    public void start(Stage stage) throws Exception 
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("unitsLoginScreen.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -30,8 +31,8 @@ public class ClientGUItest extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         launch(args);
-    }
-    
+    }    
 }

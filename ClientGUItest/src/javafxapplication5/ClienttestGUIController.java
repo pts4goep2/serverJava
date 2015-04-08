@@ -12,6 +12,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
@@ -20,11 +22,14 @@ import javafx.scene.control.TextArea;
  *
  * @author pieter
  */
-public class ClienttestGUIController implements Initializable {
-    @FXML
-    private TextArea input;
-    @FXML
-    private ListView output;
+public class ClienttestGUIController implements Initializable 
+{
+    @FXML private TextArea input;
+    @FXML private ListView output;
+    @FXML private ComboBox cbBeschikbareUnits;
+    @FXML private Label lbGebruikersnaam;
+    private String naam;
+    
     private chatClient cc;
 
     /**
@@ -33,16 +38,23 @@ public class ClienttestGUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        cc = new chatClient(this);
-    }    
-
+        
+    }
+    
+    @FXML
+    private void selectUnit(ActionEvent event)
+    {
+        this.naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
+        output.getItems().add("[Algemeen]: je coummuniceerd nu met: " + this.naam);
+    }
+    
     @FXML
     private void btnSend_Click(ActionEvent event) 
     {
        String message = input.getText();
        input.clear();
        output.getItems().add(message);
-       cc.sendMessage(message);
+       cc.sendMessage(message, naam);
     }
     
     public void addItemListView(String item)
@@ -55,5 +67,14 @@ public class ClienttestGUIController implements Initializable {
                 output.getItems().add(item);            
             }
         });
+    }
+    
+    public void setUser(String user)
+    {
+        cc = new chatClient(this, user);
+        lbGebruikersnaam.setText(user);
+        cbBeschikbareUnits.setItems(cc.getObservableClients());
+        this.naam = "Meldkamer";
+        output.getItems().add("[Algemeen]: je coummuniceerd nu met de meldkamer");
     }
 }
