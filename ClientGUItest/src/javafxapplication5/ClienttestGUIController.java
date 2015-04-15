@@ -45,7 +45,7 @@ public class ClienttestGUIController implements Initializable
     private void selectUnit(ActionEvent event)
     {
         this.naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
-        output.getItems().add("[Algemeen]: je coummuniceerd nu met: " + this.naam);
+        output.getItems().add("[Algemeen]: je stuurt nu berichten naar: " + this.naam);
     }
     
     @FXML
