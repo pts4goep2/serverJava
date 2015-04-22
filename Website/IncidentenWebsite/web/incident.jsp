@@ -18,8 +18,8 @@
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
-        <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.41:3306/mydb"
+        <%--<sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://145.144.241.132:3306/mydb"
                            user="cims"  password="cims"/>
 
         <sql:query dataSource="${source}" var="data">
@@ -27,7 +27,7 @@
         </sql:query>
 
         <c:forEach var="coords" begin="0" items="${data.rows}">
-
+        --%>
 
            <script>
                 var map;
@@ -35,12 +35,12 @@
                 function initialize() {
                     var mapOptions = {
                         zoom: 8,
-                        center: new google.maps.LatLng(${coords.goe_lat}, ${coords.goe_long})
+                        center: new google.maps.LatLng(${param.goe_lat}, ${param.goe_long})
                         
                     };
                     map = new google.maps.Map(document.getElementById('map-canvas'),
                             mapOptions);
-                    var marker = new google.maps.Marker({position: new google.maps.LatLng(${coords.goe_lat}, ${coords.goe_long}),
+                    var marker = new google.maps.Marker({position: new google.maps.LatLng(${param.goe_lat}, ${param.goe_long}),
                         map: map});
                 }
 
@@ -50,8 +50,8 @@
             
         </head>
         <body >
-            <h1> ${coords.name}</h1>
-            <a> ${coords.description}   </a> </c:forEach>
+            <h1> ${param.name}</h1>
+            <a> ${param.description}   </a> <%--</c:forEach>--%>
         <div id = "map-canvas" style = "height:300px; width:500px" > </div>
     </body>
 </html>
