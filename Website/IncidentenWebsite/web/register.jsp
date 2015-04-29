@@ -40,7 +40,7 @@
 
                     <c:if test="${param.firstname != null}">
                         <%--<sql:query dataSource="${source}" var="data">
-                            SELECT * FROM calamity;
+                            INSERT INTO tabel (calamid, userid, bericht) VALUES (${param.id, sessionScope.user, param.bericht);
                         </sql:query>--%>
                             <c:redirect url="register_process.jsp"/>
                     </c:if>
