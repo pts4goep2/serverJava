@@ -37,7 +37,7 @@
                                user="cims"  password="cims"/>
 
             <sql:query dataSource="${source}" var="data">
-                SELECT * FROM civilian WHERE USERNAME = ${param.username} AND PASSWORD = ${param.password}"
+                SELECT * FROM civilian WHERE USERNAME = ${param.username} AND PASSWORD = ${param.password}
             </sql:query>
 
             <c:forEach var="persoon" begin="0" items="${data.rows}">

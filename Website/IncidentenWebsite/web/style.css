@@ -1,0 +1,64 @@
+@charset "utf-8";
+html
+{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+body
+{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+}
+div.header
+{
+	width: 100%;
+	height: 50px;
+	background-color: #3857a7;
+	margin: 0;
+}
+
+div.header h1
+{
+	max-width: 180px;
+    margin: 0 auto;
+    color: #ffffff;
+    padding-top: 5px;    
+}
+
+div.incidentenview
+{
+	width: 70%;
+	height: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: green;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-left: 100px;
+}
+
+div.inhoudwrapper
+{
+	width: 70%;
+	overflow: hidden;
+}
+
+div.mapview
+{
+	height: 300px;
+	width: 500px;
+	background-color: white;
+	float: left;
+}
+
+div.inhoudincident
+{
+	display: inline-block;
+	background-color: blue;
+	overflow: hidden;
+	margin-left: 20px;
+}

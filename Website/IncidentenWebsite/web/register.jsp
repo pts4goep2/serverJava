@@ -39,9 +39,10 @@
                 </section>
 
                     <c:if test="${param.firstname != null}">
-                        <%--<sql:query dataSource="${source}" var="data">
-                            INSERT INTO tabel (calamid, userid, bericht) VALUES (${param.id, sessionScope.user, param.bericht);
-                        </sql:query>--%>
+                        <sql:query dataSource="${source}" var="data">
+                            INSERT INTO civilian (first_name, last_name, username, password, email, birthdate, Region) 
+                            VALUES (${param.firstname}, ${param.lastname}, ${param.username}, ${param.password}, ${param.email}, ${param.birthdate}, ${param.regio});
+                        </sql:query>
                             <c:redirect url="register_process.jsp"/>
                     </c:if>
                     </body>
