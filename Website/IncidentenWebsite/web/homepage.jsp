@@ -32,7 +32,6 @@
                 <c:param name="description" value="${coords.description}"/>
                 <c:param name="goe_lat" value="${coords.goe_lat}"/>
                 <c:param name="goe_long" value="${coords.goe_long}"/>
-                <c:param name="id" value="${coords.id}"/>
             </c:url>
 
         </head>

@@ -1,0 +1,16 @@
+apr 15, 2015 1:17:17 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: init: Associated with Deployer 'Catalina:type=Deployer,host=localhost'
+apr 15, 2015 1:17:17 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: init: Global resources are available
+apr 15, 2015 1:17:17 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: list: Listing contexts for virtual host 'localhost'
+apr 15, 2015 1:17:17 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: undeploy: Undeploying web application at '/IncidentenWebsite'
+apr 15, 2015 1:17:18 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: install: Installing context configuration at 'file:/C:/Users/Leo/AppData/Local/Temp/context5237837100946153792.xml'
+apr 15, 2015 1:17:18 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: start: Starting web application '/IncidentenWebsite'
+apr 15, 2015 1:19:10 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: list: Listing contexts for virtual host 'localhost'
+apr 15, 2015 1:19:10 PM org.apache.catalina.core.ApplicationContext log
+INFO: Manager: list: Listing contexts for virtual host 'localhost'
