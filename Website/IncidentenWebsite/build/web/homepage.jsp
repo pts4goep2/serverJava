@@ -19,7 +19,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.41:3306/mydb"
+                           url="jdbc:mysql://145.144.241.132:3306/mydb"
                            user="cims"  password="cims"/>
 
         <sql:query dataSource="${source}" var="data">
@@ -27,9 +27,15 @@
         </sql:query>
 
         <c:forEach var="coords" begin="0" items="${data.rows}">            
-            
+            <c:url value="/incident.jsp" var="completeURL">
+                <c:param name="name" value="${coords.name}"/>
+                <c:param name="description" value="${coords.description}"/>
+                <c:param name="goe_lat" value="${coords.goe_lat}"/>
+                <c:param name="goe_long" value="${coords.goe_long}"/>
+            </c:url>
+
         </head>
         <body >
-            <h1> ${coords.name}</h1> </c:forEach>
+            <h1> <a href="${completeURL}">${coords.name}</a></h1> </c:forEach>
     </body>
 </html>
