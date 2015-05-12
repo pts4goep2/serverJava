@@ -22,9 +22,9 @@
                            url="jdbc:mysql://145.144.241.132:3306/mydb"
                            user="cims"  password="cims"/>
 
-        <sql:query dataSource="${source}" var="data">
+        <%--<sql:query dataSource="${source}" var="data">
             SELECT * FROM calamiteitberichten WHERE idcalamity = ${param.id};
-        </sql:query>
+        </sql:query>--%>
 
 
         <script>
@@ -50,7 +50,7 @@
 <body >
     <h1> ${param.name}</h1>
     <a> ${param.description}   </a>
-    <h1> Berichten </h1>
+    <%--<h1> Berichten </h1>
     <c:forEach var="berichten" begin="0" items="${data.rows}">
 
         <a>${berichten.firstname} ${berichten.lastname} ${berichten.timestamp} ${berichten.bericht}</a>
@@ -73,9 +73,9 @@
 
     <c:if test="${param.bericht != null}">
 
-        <%--<sql:query dataSource="${source}" var="data">
+        <sql:query dataSource="${source}" var="data">
             INSERT INTO tabel (calamid, userid, bericht) VALUES (${param.id, sessionScope.user, param.bericht);
-        </sql:query>--%>
+        </sql:query>
                 
 
         <c:redirect url="incident.jsp">
@@ -85,7 +85,7 @@
                 <c:param name="goe_long" value="${param.goe_long}"/>
         </c:redirect>
 
-    </c:if>
+    </c:if>--%>
 
 </body>
 </html>

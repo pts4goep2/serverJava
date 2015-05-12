@@ -14,6 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
+        <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://145.144.241.80:3306/mydb"
+                           user="cims"  password="cims"/>
     </head>
     <body>
         <section class="loginform cf">  
@@ -26,7 +30,7 @@
                     <li><label for="username">Username</label>  
                         <input type="text" name="username" required id="username"></li>  
                     <li><label for="password">Password</label>  
-                        <input type="text" name="password" required id="password"></li>  
+                        <input type="password" name="password" required id="password"></li>  
                     <li><label for="email">Email</label>  
                         <input type="text" name="email" required id="email"></li>  
                     <li><label for="birthdate">Geboortedatum</label>  
@@ -39,10 +43,10 @@
                 </section>
 
                     <c:if test="${param.firstname != null}">
-                        <sql:query dataSource="${source}" var="data">
-                            INSERT INTO civilian (first_name, last_name, username, password, email, birthdate, Region) 
-                            VALUES (${param.firstname}, ${param.lastname}, ${param.username}, ${param.password}, ${param.email}, ${param.birthdate}, ${param.regio});
-                        </sql:query>
+                        <sql:update dataSource="${source}" var="data">
+                            INSERT INTO civilian (first_name, last_name, username, password, email, birthdate, idaddress) 
+                            VALUES ('${param.firstname}', '${param.lastname}', '${param.username}', '${param.password}', '${param.email}', '${param.birthdate}', 1);
+                        </sql:update>
                             <c:redirect url="register_process.jsp"/>
                     </c:if>
                     </body>
