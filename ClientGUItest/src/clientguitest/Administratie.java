@@ -5,9 +5,9 @@
  */
 package clientguitest;
 
+import Audio.AudioHandler;
 import Database.*;
-import java.util.Date;
-import java.util.regex.Pattern;
+import javafxapplication5.ClienttestGUIController;
 
 /**
  *
@@ -17,10 +17,24 @@ public class Administratie
 {
     private IDatabase database;
     private static Administratie admin = null;
+    private AudioHandler handler;
+    private ChatClient cc;
+    
     private Administratie()
     {
         //database = new SQL();
+        handler = new AudioHandler();
     }
+
+    public void setOntvanger(String naam) 
+    {
+        this.cc.setOntvanger(naam);
+    }  
+    
+    public ChatClient getCc() 
+    {
+        return cc;
+    } 
     
     public boolean loginEmergencyService(String username, String password, int id)
     {
@@ -38,5 +52,31 @@ public class Administratie
             admin = new Administratie();
         }
         return admin;
+    }
+    
+    public void startRecordingAudio()
+    {
+        handler.startRecording();
+    }
+    
+    public void stopRecordingAudio()
+    {
+        handler.stopRecording();
+    }
+    
+    public void setChatClient(String user, ClienttestGUIController controller)
+    {
+        cc = new ChatClient(controller, user);        
+        cc.setOntvanger(user);
+    }
+    
+    public void sendMessage(String bericht)
+    {
+        cc.sendMessage(bericht);
+    }
+    
+    public void sendAudioMessage()
+    {
+        cc.sendAudioMessage(handler.getAudiofile());
     }
 }

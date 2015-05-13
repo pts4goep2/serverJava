@@ -5,13 +5,16 @@
  */
 package javafxapplication5;
 
-import clientguitest.chatClient;
+import clientguitest.Administratie;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -28,9 +31,13 @@ public class ClienttestGUIController implements Initializable
     @FXML private ListView output;
     @FXML private ComboBox cbBeschikbareUnits;
     @FXML private Label lbGebruikersnaam;
-    private String naam;
+    @FXML private Label lbRecordTimer;
+    @FXML private Button btnRecord;
     
-    private chatClient cc;
+    private Administratie admin;
+    private Timer timer;
+    private boolean pressed;
+    private int teller;
 
     /**
      * Initializes the controller class.
@@ -38,14 +45,16 @@ public class ClienttestGUIController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+        admin = Administratie.getInstance();
         
     }
     
     @FXML
     private void selectUnit(ActionEvent event)
     {
-        this.naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
-        output.getItems().add("[Algemeen]: je stuurt nu berichten naar: " + this.naam);
+        String naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
+        admin.setOntvanger(naam);
+        output.getItems().add("[Algemeen]: je stuurt nu berichten naar: " + naam);
     }
     
     @FXML
@@ -54,7 +63,60 @@ public class ClienttestGUIController implements Initializable
        String message = input.getText();
        input.clear();
        output.getItems().add(message);
-       cc.sendMessage(message, naam);
+       admin.sendMessage(message);
+    }
+    
+    @FXML
+    private void btnRecording_Click(ActionEvent event)
+    {
+        if(!pressed)
+        {
+            pressed = true;
+            btnRecord.setText("Klik om te stoppen met opnemen");
+            admin.startRecordingAudio();
+            System.out.println("audio opnemen gestart");
+            startTimer();
+        }
+        else if(pressed)
+        {
+            pressed = false;
+            btnRecord.setText("Neem nieuw audiobericht op");
+            admin.stopRecordingAudio();
+            System.out.println("audio opnemen gestopt");
+            admin.sendAudioMessage();
+            timer.purge();
+            timer.cancel();
+            teller = 0;
+            input.setText("druk op send om het audiobericht te versturen");
+            lbRecordTimer.setText(String.valueOf(teller));            
+        }
+    }
+    
+    private void startTimer()
+    {
+        timer = new Timer();
+        TimerTask task = new TimerTask() 
+        {
+            @Override
+            public void run() 
+            {
+                Platform.runLater(new Runnable() 
+                {
+                    @Override
+                    public void run() 
+                    {
+                        lbRecordTimer.setText(String.valueOf(teller));
+                        teller++;
+                    }
+                });
+            }
+        };
+        timer.schedule(task, 0 , 1000);
+    }
+    
+    private void stopTimer()
+    {
+        timer.cancel();
     }
     
     public void addItemListView(String item)
@@ -71,10 +133,9 @@ public class ClienttestGUIController implements Initializable
     
     public void setUser(String user)
     {
-        cc = new chatClient(this, user);
+        admin.setChatClient(user, this);
         lbGebruikersnaam.setText(user);
-        cbBeschikbareUnits.setItems(cc.getObservableClients());
-        this.naam = "Meldkamer";
+        cbBeschikbareUnits.setItems(admin.getCc().getObservableClients());
         output.getItems().add("[Algemeen]: je coummuniceerd nu met de meldkamer");
     }
 }

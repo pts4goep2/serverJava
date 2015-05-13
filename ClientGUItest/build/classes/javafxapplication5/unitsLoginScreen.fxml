@@ -21,5 +21,6 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
+      <Label fx:id="lbError" layoutX="334.0" layoutY="273.0" prefHeight="17.0" prefWidth="172.0" textFill="RED" />
    </children>
 </AnchorPane>

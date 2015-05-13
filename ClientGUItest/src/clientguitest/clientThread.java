@@ -15,12 +15,12 @@ import java.util.ArrayList;
  *
  * @author Leo
  */
-public class clientThread implements Runnable 
+public class ClientThread implements Runnable 
 {
     private ObjectInputStream stream;
-    private chatClient cc;
+    private ChatClient cc;
     
-    public clientThread(ObjectInputStream stream, chatClient cc)
+    public ClientThread(ObjectInputStream stream, ChatClient cc)
     {
         this.stream = stream;
         this.cc =cc;

@@ -5,6 +5,7 @@
  */
 package clientguitest;
 
+import chat.AudioMessage;
 import chat.Message;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ import javafxapplication5.ClienttestGUIController;
  *
  * @author pieter
  */
-public class chatClient 
+public class ChatClient 
 {
     private ObjectOutputStream out;
     private ClienttestGUIController controller;
@@ -32,8 +33,9 @@ public class chatClient
     private String naam;
     private ArrayList<String> clients;
     private ObservableList<String> observableClients;
+    private String ontvanger;
     
-    public chatClient(ClienttestGUIController controller, String user)
+    public ChatClient(ClienttestGUIController controller, String user)
     {
         this.controller = controller;
         OutputStream outStream = null;
@@ -41,7 +43,7 @@ public class chatClient
         {
             clients = new ArrayList<String>();
             observableClients = observableList(clients);
-            Socket s = new Socket("localhost", 8189);
+            Socket s = new Socket("145.93.114.132", 8189);
             outStream = s.getOutputStream();
             InputStream inStream = s.getInputStream();
             // Let op: volgorde is van belang!
@@ -49,17 +51,22 @@ public class chatClient
             ObjectInputStream in = new ObjectInputStream(inStream);
             this.naam = user;
             out.writeObject(naam);
-            clientThread ct = new clientThread(in,this);
+            ClientThread ct = new ClientThread(in,this);
             t = new Thread(ct);
             t.start();
         } 
         catch (IOException ex) 
         {
-            Logger.getLogger(chatClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
+
+    public void setOntvanger(String ontvanger) 
+    {
+        this.ontvanger = ontvanger;
+    }
     
-    public void sendMessage(String bericht, String ontvanger)
+    public void sendMessage(String bericht)
     {
         try 
         {
@@ -69,8 +76,22 @@ public class chatClient
         } 
         catch (IOException ex) 
         {
-            Logger.getLogger(chatClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void sendAudioMessage(byte[] audiofile)
+    {
+        try
+        {
+            AudioMessage audiomessage = new AudioMessage("Audiobericht ontvangen van: " + this.naam, this.naam, ontvanger, audiofile);
+            out.writeObject(audiomessage);
+            out.flush();
+        }
+        catch(IOException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+        }                
     }
     
     public void addMessagetoScreen(String message)

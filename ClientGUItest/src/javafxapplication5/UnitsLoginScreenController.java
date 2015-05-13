@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,6 +39,8 @@ public class UnitsLoginScreenController implements Initializable {
     private ComboBox<String> cbSoortHulpdienst;
     @FXML
     private Button btnLogin;
+    @FXML
+    private Label lbError;
     
     private Administratie admin;
 
@@ -60,33 +63,52 @@ public class UnitsLoginScreenController implements Initializable {
     private void btnLogin_onClick(ActionEvent event) 
     {
         String username = tfGebruikersnaam.getText();
-//        if(admin.loginEmergencyService(username, tfWachtwoord.getText(), cbSoortHulpdienst.getSelectionModel().getSelectedIndex()) == true)
-//        {
-            try 
-            {
-                URL location1 = getClass().getResource("clienttestGUI.fxml");
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(location1);
-                fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-                
-                Parent root = (Parent) (Node) fxmlLoader.load(location1.openStream());
-                
-                ClienttestGUIController ctrl1 = (ClienttestGUIController) fxmlLoader.getController();
-                ctrl1.setUser(username);
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                Stage stage2 = (Stage) btnLogin.getScene().getWindow();
-                // do what you have to do
-                stage2.close();
-                //show the stage
-                stage.showAndWait();
-            } 
-            catch (IOException ex) 
-            {
-                Logger.getLogger(UnitsLoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//        }
+        if(tfWachtwoord.getText().equals(""))
+        {
+            lbError.setText("Voer een wachtwoord in.");
+        }
+        else if(tfGebruikersnaam.getText().equals(""))
+        {
+            lbError.setText("Voer een gebruikersnaam in.");
+        }
+        else if(cbSoortHulpdienst.getSelectionModel().getSelectedItem().equals(""))
+        {
+            lbError.setText("Voer in wat voor soort hulpdienst u bent.");
+        }
+        else
+        {
+//            if(admin.loginEmergencyService(username, tfWachtwoord.getText(), cbSoortHulpdienst.getSelectionModel().getSelectedIndex()) == true)
+//            {
+                try 
+                {
+                    URL location1 = getClass().getResource("clienttestGUI.fxml");
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(location1);
+                    fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+
+                    Parent root = (Parent) (Node) fxmlLoader.load(location1.openStream());
+
+                    ClienttestGUIController ctrl1 = (ClienttestGUIController) fxmlLoader.getController();
+                    ctrl1.setUser(username);
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    Stage stage2 = (Stage) btnLogin.getScene().getWindow();
+                    // do what you have to do
+                    stage2.close();
+                    //show the stage
+                    stage.showAndWait();
+                } 
+                catch (IOException ex) 
+                {
+                    Logger.getLogger(UnitsLoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+//            }
+//            else
+//            {
+//                lbError.setText("Gebruikersnaam of wachtwoord is niet correct");
+//            }
+        }
     }
     
 }
