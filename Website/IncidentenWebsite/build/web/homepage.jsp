@@ -19,7 +19,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.80:3306/mydb"
+                           url="jdbc:mysql://145.144.241.132:3306/mydb"
                            user="cims"  password="cims"/>
 
         <sql:query dataSource="${source}" var="data">
