@@ -8,6 +8,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  <!-- Bootstrap Core CSS -->
@@ -31,7 +32,7 @@
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://145.144.241.47:3306/cimsdb"
                            user="cims"  password="cims"/>
-
+        
         <sql:query dataSource="${source}" var="data">
             SELECT * FROM calamity;
         </sql:query>
@@ -58,14 +59,17 @@
             <img src="resources/img/logo1.png" alt="logo">
              <ul class="nav navbar-nav">
             <c:forEach var="coords" begin="0" items="${data.rows}">            
-                    <c:url value="/incident.jsp" var="completeURL">
-                        <c:param name="name" value="${coords.name}"/>
-                        <c:param name="description" value="${coords.description}"/>
-                        <c:param name="goe_lat" value="${coords.goe_lat}"/>
-                        <c:param name="goe_long" value="${coords.goe_long}"/>
-                    </c:url>
-                    <li><a href="${completeURL}">${coords.name}</a></li>
+            <c:url value="/incident.jsp" var="completeURL">
+                <c:param name="name" value="${coords.calamityname}"/>
+                <c:param name="description" value="${coords.calamitydescription}"/>
+                <c:param name="goe_lat" value="${coords.calamitylatitude}"/>
+                <c:param name="goe_long" value="${coords.calamitylongtitude}"/>
+                <c:param name="danger" value="${coords.calamitydanger}"/>
+                <c:param name="id" value="${coords.calamityid}"/>
+            </c:url>
+                    <li><a href="${completeURL}">${coords.calamityname}</a></li>
                 </c:forEach>
+                    ${pageContext.session.setAttribute("HuidigIncidentSwitch", false)};
              </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -118,13 +122,7 @@
   </div>
 </div>
         
-            
-              
-           
-            
-            ${pageContext.setAttribute("HuidigIncidentSwitch", false)};
-            
-           <!-- jQuery -->
+   <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -134,7 +132,7 @@
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
-    })
+    });
     </script>  
     </body>
 </html>

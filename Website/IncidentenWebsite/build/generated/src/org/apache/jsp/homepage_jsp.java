@@ -76,6 +76,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
       out.write(" <!-- Bootstrap Core CSS -->\r\n");
       out.write(" <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\r\n");
       out.write("\r\n");
@@ -98,7 +99,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_sql_setDataSource_0(_jspx_page_context))
         return;
       out.write("\r\n");
-      out.write("\r\n");
+      out.write("        \r\n");
       out.write("        ");
       if (_jspx_meth_sql_query_0(_jspx_page_context))
         return;
@@ -129,6 +130,9 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_forEach_0(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("                    ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.setAttribute(\"HuidigIncidentSwitch\", false)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(";\r\n");
       out.write("             </ul>\r\n");
       out.write("        </div><!--/.nav-collapse -->\r\n");
       out.write("      </div>\r\n");
@@ -181,15 +185,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  </div>\r\n");
       out.write("</div>\r\n");
       out.write("        \r\n");
-      out.write("            \r\n");
-      out.write("              \r\n");
-      out.write("           \r\n");
-      out.write("            \r\n");
-      out.write("            ");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.setAttribute(\"HuidigIncidentSwitch\", false)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(";\r\n");
-      out.write("            \r\n");
-      out.write("           <!-- jQuery -->\r\n");
+      out.write("   <!-- jQuery -->\r\n");
       out.write("    <script src=\"js/jquery.js\"></script>\r\n");
       out.write("\r\n");
       out.write("    <!-- Bootstrap Core JavaScript -->\r\n");
@@ -199,7 +195,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <script>\r\n");
       out.write("    $('.carousel').carousel({\r\n");
       out.write("        interval: 5000 //changes the speed\r\n");
-      out.write("    })\r\n");
+      out.write("    });\r\n");
       out.write("    </script>  \r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
@@ -301,7 +297,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
         do {
           out.write("            \r\n");
-          out.write("                    ");
+          out.write("            ");
           if (_jspx_meth_c_url_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("\r\n");
@@ -309,7 +305,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${completeURL}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write('"');
           out.write('>');
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamityname}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("</a></li>\r\n");
           out.write("                ");
           int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
@@ -351,23 +347,31 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       }
       do {
         out.write("\r\n");
-        out.write("                        ");
+        out.write("                ");
         if (_jspx_meth_c_param_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                        ");
+        out.write("                ");
         if (_jspx_meth_c_param_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                        ");
+        out.write("                ");
         if (_jspx_meth_c_param_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                        ");
+        out.write("                ");
         if (_jspx_meth_c_param_3((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                    ");
+        out.write("                ");
+        if (_jspx_meth_c_param_4((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+          return true;
+        out.write("\r\n");
+        out.write("                ");
+        if (_jspx_meth_c_param_5((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+          return true;
+        out.write("\r\n");
+        out.write("            ");
         int evalDoAfterBody = _jspx_th_c_url_0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -393,7 +397,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_c_param_0.setPageContext(_jspx_page_context);
     _jspx_th_c_param_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
     _jspx_th_c_param_0.setName("name");
-    _jspx_th_c_param_0.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_param_0.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamityname}", java.lang.String.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_param_0 = _jspx_th_c_param_0.doStartTag();
     if (_jspx_th_c_param_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_0);
@@ -412,7 +416,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_c_param_1.setPageContext(_jspx_page_context);
     _jspx_th_c_param_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
     _jspx_th_c_param_1.setName("description");
-    _jspx_th_c_param_1.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.description}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_param_1.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamitydescription}", java.lang.String.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_param_1 = _jspx_th_c_param_1.doStartTag();
     if (_jspx_th_c_param_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_1);
@@ -431,7 +435,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_c_param_2.setPageContext(_jspx_page_context);
     _jspx_th_c_param_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
     _jspx_th_c_param_2.setName("goe_lat");
-    _jspx_th_c_param_2.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.goe_lat}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_param_2.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamitylatitude}", java.lang.String.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_param_2 = _jspx_th_c_param_2.doStartTag();
     if (_jspx_th_c_param_2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_2);
@@ -450,13 +454,51 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_c_param_3.setPageContext(_jspx_page_context);
     _jspx_th_c_param_3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
     _jspx_th_c_param_3.setName("goe_long");
-    _jspx_th_c_param_3.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.goe_long}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_param_3.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamitylongtitude}", java.lang.String.class, (PageContext)_jspx_page_context, null));
     int _jspx_eval_c_param_3 = _jspx_th_c_param_3.doStartTag();
     if (_jspx_th_c_param_3.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
       _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_3);
       return true;
     }
     _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_3);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_param_4(javax.servlet.jsp.tagext.JspTag _jspx_th_c_url_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:param
+    org.apache.taglibs.standard.tag.rt.core.ParamTag _jspx_th_c_param_4 = (org.apache.taglibs.standard.tag.rt.core.ParamTag) _jspx_tagPool_c_param_value_name_nobody.get(org.apache.taglibs.standard.tag.rt.core.ParamTag.class);
+    _jspx_th_c_param_4.setPageContext(_jspx_page_context);
+    _jspx_th_c_param_4.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
+    _jspx_th_c_param_4.setName("danger");
+    _jspx_th_c_param_4.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamitydanger}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_c_param_4 = _jspx_th_c_param_4.doStartTag();
+    if (_jspx_th_c_param_4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_4);
+      return true;
+    }
+    _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_4);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_param_5(javax.servlet.jsp.tagext.JspTag _jspx_th_c_url_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:param
+    org.apache.taglibs.standard.tag.rt.core.ParamTag _jspx_th_c_param_5 = (org.apache.taglibs.standard.tag.rt.core.ParamTag) _jspx_tagPool_c_param_value_name_nobody.get(org.apache.taglibs.standard.tag.rt.core.ParamTag.class);
+    _jspx_th_c_param_5.setPageContext(_jspx_page_context);
+    _jspx_th_c_param_5.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_url_0);
+    _jspx_th_c_param_5.setName("id");
+    _jspx_th_c_param_5.setValue((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamityid}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_c_param_5 = _jspx_th_c_param_5.doStartTag();
+    if (_jspx_th_c_param_5.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_5);
+      return true;
+    }
+    _jspx_tagPool_c_param_value_name_nobody.reuse(_jspx_th_c_param_5);
     return false;
   }
 }
