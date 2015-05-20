@@ -76,10 +76,20 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write(" <!-- Bootstrap Core CSS -->\r\n");
+      out.write(" <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\r\n");
+      out.write("\r\n");
+      out.write(" <!-- Custom CSS -->\r\n");
+      out.write(" <link href=\"css/half-slider.css\" rel=\"stylesheet\">\r\n");
+      out.write(" \r\n");
+      out.write(" <!-- CSS -->\r\n");
+      out.write(" <link href=\"css/bootstrap.css\" rel=\"stylesheet\">\r\n");
+      out.write("    \r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
+      out.write("        \r\n");
       out.write("        <title>JSP Page</title>\r\n");
       out.write("        <script\r\n");
       out.write("        src=\"https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true\"></script>\r\n");
@@ -94,10 +104,103 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
         return;
       out.write("\r\n");
       out.write("\r\n");
-      out.write("        ");
+      out.write("      \r\n");
+      out.write("\r\n");
+      out.write("        </head>\r\n");
+      out.write("        <body >\r\n");
+      out.write("            \r\n");
+      out.write("            <div class=\"row\">\r\n");
+      out.write("  <div class=\"col-sm-3\">\r\n");
+      out.write("    <div class=\"sidebar-nav\">\r\n");
+      out.write("      <div class=\"navbar navbar-default\" role=\"navigation\">\r\n");
+      out.write("        <div class=\"navbar-header\">\r\n");
+      out.write("          <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".sidebar-navbar-collapse\">\r\n");
+      out.write("            <span class=\"sr-only\">Toggle navigation</span>\r\n");
+      out.write("            <span class=\"icon-bar\"></span>\r\n");
+      out.write("            <span class=\"icon-bar\"></span>\r\n");
+      out.write("            <span class=\"icon-bar\"></span>\r\n");
+      out.write("          </button>\r\n");
+      out.write("          <span class=\"visible-xs navbar-brand\">Sidebar menu</span>\r\n");
+      out.write("        </div>\r\n");
+      out.write("        <div class=\"navbar-collapse collapse sidebar-navbar-collapse\">\r\n");
+      out.write("            <img src=\"resources/img/logo1.png\" alt=\"logo\">\r\n");
+      out.write("             <ul class=\"nav navbar-nav\">\r\n");
+      out.write("            ");
       if (_jspx_meth_c_forEach_0(_jspx_page_context))
         return;
       out.write("\r\n");
+      out.write("             </ul>\r\n");
+      out.write("        </div><!--/.nav-collapse -->\r\n");
+      out.write("      </div>\r\n");
+      out.write("    </div>\r\n");
+      out.write("  </div>\r\n");
+      out.write("  <div class=\"col-sm-9\">\r\n");
+      out.write("    \r\n");
+      out.write("      <header id=\"myCarousel\" class=\"carousel slide\">\r\n");
+      out.write("        <!-- Indicators -->\r\n");
+      out.write("        <ol class=\"carousel-indicators\">\r\n");
+      out.write("            <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n");
+      out.write("            <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n");
+      out.write("            <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n");
+      out.write("        </ol>\r\n");
+      out.write("\r\n");
+      out.write("        <!-- Wrapper for Slides -->\r\n");
+      out.write("        <div class=\"carousel-inner\">\r\n");
+      out.write("            <div class=\"item active\">\r\n");
+      out.write("                <!-- Set the first background image using inline CSS below. -->\r\n");
+      out.write("                <div class=\"fill\" style=\"background-image:url('http://placehold.it/1900x1080&text=Slide One');\"></div>\r\n");
+      out.write("                <div class=\"carousel-caption\">\r\n");
+      out.write("                    <h2>Caption 1</h2>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("            <div class=\"item\">\r\n");
+      out.write("                <!-- Set the second background image using inline CSS below. -->\r\n");
+      out.write("                <div class=\"fill\" style=\"background-image:url('http://placehold.it/1900x1080&text=Slide Two');\"></div>\r\n");
+      out.write("                <div class=\"carousel-caption\">\r\n");
+      out.write("                    <h2>Caption 2</h2>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("            <div class=\"item\">\r\n");
+      out.write("                <!-- Set the third background image using inline CSS below. -->\r\n");
+      out.write("                <div class=\"fill\" style=\"background-image:url('http://placehold.it/1900x1080&text=Slide Three');\"></div>\r\n");
+      out.write("                <div class=\"carousel-caption\">\r\n");
+      out.write("                    <h2>Caption 3</h2>\r\n");
+      out.write("                </div>\r\n");
+      out.write("            </div>\r\n");
+      out.write("        </div>\r\n");
+      out.write("\r\n");
+      out.write("        <!-- Controls -->\r\n");
+      out.write("        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\r\n");
+      out.write("            <span class=\"icon-prev\"></span>\r\n");
+      out.write("        </a>\r\n");
+      out.write("        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\r\n");
+      out.write("            <span class=\"icon-next\"></span>\r\n");
+      out.write("        </a>\r\n");
+      out.write("      <h2>Test hierzo</h2>\r\n");
+      out.write("      \r\n");
+      out.write("  </div>\r\n");
+      out.write("</div>\r\n");
+      out.write("        \r\n");
+      out.write("            \r\n");
+      out.write("              \r\n");
+      out.write("           \r\n");
+      out.write("            \r\n");
+      out.write("            ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.setAttribute(\"HuidigIncidentSwitch\", false)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(";\r\n");
+      out.write("            \r\n");
+      out.write("           <!-- jQuery -->\r\n");
+      out.write("    <script src=\"js/jquery.js\"></script>\r\n");
+      out.write("\r\n");
+      out.write("    <!-- Bootstrap Core JavaScript -->\r\n");
+      out.write("    <script src=\"js/bootstrap.min.js\"></script>\r\n");
+      out.write("\r\n");
+      out.write("    <!-- Script to Activate the Carousel -->\r\n");
+      out.write("    <script>\r\n");
+      out.write("    $('.carousel').carousel({\r\n");
+      out.write("        interval: 5000 //changes the speed\r\n");
+      out.write("    })\r\n");
+      out.write("    </script>  \r\n");
       out.write("    </body>\r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
@@ -123,7 +226,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_sql_setDataSource_0.setParent(null);
     _jspx_th_sql_setDataSource_0.setVar("source");
     _jspx_th_sql_setDataSource_0.setDriver("com.mysql.jdbc.Driver");
-    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://145.144.241.132:3306/mydb");
+    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://145.144.241.47:3306/cimsdb");
     _jspx_th_sql_setDataSource_0.setUser("cims");
     _jspx_th_sql_setDataSource_0.setPassword("cims");
     int _jspx_eval_sql_setDataSource_0 = _jspx_th_sql_setDataSource_0.doStartTag();
@@ -198,19 +301,17 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
         do {
           out.write("            \r\n");
-          out.write("            ");
+          out.write("                    ");
           if (_jspx_meth_c_url_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("\r\n");
-          out.write("\r\n");
-          out.write("        </head>\r\n");
-          out.write("        <body >\r\n");
-          out.write("            <h1> <a href=\"");
+          out.write("                    <li><a href=\"");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${completeURL}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write('"');
           out.write('>');
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("</a></h1> ");
+          out.write("</a></li>\r\n");
+          out.write("                ");
           int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
           if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
             break;
@@ -250,23 +351,23 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       }
       do {
         out.write("\r\n");
-        out.write("                ");
+        out.write("                        ");
         if (_jspx_meth_c_param_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                ");
+        out.write("                        ");
         if (_jspx_meth_c_param_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                ");
+        out.write("                        ");
         if (_jspx_meth_c_param_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("                ");
+        out.write("                        ");
         if (_jspx_meth_c_param_3((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_url_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
           return true;
         out.write("\r\n");
-        out.write("            ");
+        out.write("                    ");
         int evalDoAfterBody = _jspx_th_c_url_0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;

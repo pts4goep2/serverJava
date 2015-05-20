@@ -11,6 +11,16 @@
 <%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!-- Bootstrap Core CSS -->
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+
+ <!-- Custom CSS -->
+ <link href="css/half-slider.css" rel="stylesheet">
+ 
+ <!-- CSS -->
+ <link href="css/bootstrap.css" rel="stylesheet">
+ 
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +30,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.156:3306/mydb"
+                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
                            user="cims"  password="cims"/>
 
 
@@ -98,5 +108,16 @@
 
 </c:if>
 
+        <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
 </body>
 </html>
