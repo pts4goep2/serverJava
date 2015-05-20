@@ -35,13 +35,9 @@ public class Administratie
         return cc;
     } 
     
-    public boolean loginEmergencyService(String username, String password, int id)
+    public String loginEmergencyService(String username, String password, int id)
     {
-        if(id < 1 || id > 3)
-        {
-            return false;
-        }
-        return database.loginEmergencyService(username, password, id);
+        return database.loginPerson(username, password);
     }
     
     public static Administratie getInstance()
