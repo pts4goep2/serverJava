@@ -15,8 +15,6 @@ public class Message implements Serializable
 {
     private static final long serialVersionUID = -7480552314589874590L;
     private String bericht;
-
-    
     private String afzender;
     private String ontvanger;
     
@@ -36,6 +34,11 @@ public class Message implements Serializable
     {
         return bericht;
     }
+
+    public String getAfzender() 
+    {
+        return afzender;
+    }    
     
     @Override
     public String toString()

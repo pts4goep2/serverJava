@@ -12,6 +12,7 @@ package chat;
 public class AudioMessage extends Message
 {
     private byte[] audiofile;
+    private String audiopath;
     
     public AudioMessage(String bericht, String afzender, String ontvanger, byte[] audiofile) 
     {
@@ -22,5 +23,15 @@ public class AudioMessage extends Message
     public byte[] getAudiofile() 
     {
         return audiofile;
+    }
+    
+    public String getAudiopath() 
+    {
+        return audiopath;
+    }
+
+    public void setAudiopath(String audiopath) 
+    {
+        this.audiopath = audiopath;
     }
 }

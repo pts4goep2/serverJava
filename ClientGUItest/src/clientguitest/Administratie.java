@@ -7,7 +7,6 @@ package clientguitest;
 
 import Audio.AudioHandler;
 import Database.*;
-import javafxapplication5.ClienttestGUIController;
 
 /**
  *
@@ -77,6 +76,6 @@ public class Administratie
     
     public void sendAudioMessage()
     {
-        cc.sendAudioMessage(handler.getAudiofile());
+        cc.sendAudioMessage(handler.getAudiofile(), handler.getPath());
     }
 }

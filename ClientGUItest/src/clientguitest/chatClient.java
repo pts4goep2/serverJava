@@ -7,6 +7,7 @@ package clientguitest;
 
 import chat.AudioMessage;
 import chat.Message;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -56,6 +57,11 @@ public class ChatClient
             ClientThread ct = new ClientThread(in,this);
             t = new Thread(ct);
             t.start();
+            File file = new File("Opnames");
+            if(!file.exists())
+            {
+                file.mkdir();
+            }
         } 
         catch (IOException ex) 
         {
@@ -78,9 +84,9 @@ public class ChatClient
         try 
         {
             Message message = new Message(bericht, this.naam, ontvanger);
-            addMessage(message);
             out.writeObject(message);
             out.flush();
+            addMessage(message);
         } 
         catch (IOException ex) 
         {
@@ -88,13 +94,15 @@ public class ChatClient
         }
     }
     
-    public void sendAudioMessage(byte[] audiofile)
+    public void sendAudioMessage(byte[] audiofile, String path)
     {
         try
         {
             AudioMessage audiomessage = new AudioMessage("Audiobericht ontvangen van: " + this.naam, this.naam, ontvanger, audiofile);
+            audiomessage.setAudiopath(path);
             out.writeObject(audiomessage);
             out.flush();
+            addMessage(audiomessage);
             
         }
         catch(IOException ex)

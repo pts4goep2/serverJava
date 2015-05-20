@@ -6,10 +6,16 @@
 
 package clientguitest;
 
+import chat.AudioMessage;
 import chat.Message;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -19,11 +25,20 @@ public class ClientThread implements Runnable
 {
     private ObjectInputStream stream;
     private ChatClient cc;
+    private SimpleDateFormat sdfDate;
     
     public ClientThread(ObjectInputStream stream, ChatClient cc)
     {
         this.stream = stream;
         this.cc =cc;
+        sdfDate = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss.SSS");;//dd/MM/yyyy
+    }
+    
+    private String getSystemTimeAsString()
+    {
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
     }
 
     @Override
@@ -50,7 +65,16 @@ public class ClientThread implements Runnable
                 if(object instanceof Message)
                 {
                     Message message = (Message) object;
-                    cc.addMessage(message);
+                    if(message instanceof AudioMessage)
+                    {
+                        AudioMessage audiomessage = (AudioMessage) message;
+                        Thread t = new Thread(new WriteFileThread(audiomessage, cc));
+                        t.start();
+                    }
+                    else
+                    {
+                        cc.addMessage(message);
+                    }
                 }                
             } 
             catch (IOException | ClassNotFoundException ex) 

@@ -5,7 +5,11 @@
  */
 package javafxapplication5;
 
+import chat.AudioMessage;
+import chat.Message;
 import clientguitest.Administratie;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -19,6 +23,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * FXML Controller class
@@ -50,11 +60,25 @@ public class ClienttestGUIController implements Initializable
     }
     
     @FXML
+    public void outputItem_Click(MouseEvent arg0) throws LineUnavailableException, IOException, UnsupportedAudioFileException
+    {
+        Message message = (Message) output.getSelectionModel().getSelectedItem();
+        if(message instanceof AudioMessage)
+        {
+            AudioMessage audmessage = (AudioMessage) message;
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(audmessage.getAudiopath()));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        }        
+    }
+    
+    @FXML
     private void selectUnit(ActionEvent event)
     {
         String naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
         admin.setOntvanger(naam);
-        output.getItems().add("[Algemeen]: je stuurt nu berichten naar: " + naam);
+        addItemListView("[Algemeen]: je stuurt nu berichten naar: " + naam);
     }
     
     @FXML
@@ -140,7 +164,7 @@ public class ClienttestGUIController implements Initializable
         admin.setOntvanger("Meldkamer");
         lbGebruikersnaam.setText(user);
         cbBeschikbareUnits.setItems(admin.getCc().getObservableClients());
-        output.getItems().add("[Algemeen]: je coummuniceerd nu met de meldkamer");
+        addItemListView("[Algemeen]: je coummuniceerd nu met de meldkamer");
         output.setItems(admin.getCc().getObservableMessages());
     }
 }

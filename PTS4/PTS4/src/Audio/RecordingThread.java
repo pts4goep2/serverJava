@@ -9,6 +9,7 @@ import Audio.AudioHandler;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.*;
@@ -17,26 +18,31 @@ import javax.sound.sampled.*;
  *
  * @author Leo
  */
-public class RecordingThread implements Runnable
+public class RecordingThread implements Callable<byte[]>
 {
     private TargetDataLine line;
     private AudioFileFormat.Type targetType;
     private AudioInputStream audioInputStream;
     private File outputFile;
-    private AudioHandler handler;
     
-    public RecordingThread(TargetDataLine line, AudioFileFormat.Type targetType, File file, AudioHandler handler)
+    public RecordingThread(TargetDataLine line, AudioFileFormat.Type targetType, File file)
     {
         this.line = line;
         this.targetType = targetType;
         this.outputFile = file;
         this.audioInputStream = new AudioInputStream(line);
-        this.handler = handler;
     }
     
-    @Override
-    public void run() 
+    public void stopRecording()
     {
+        line.stop();
+        line.close();
+    }
+
+    @Override
+    public byte[] call() throws Exception 
+    {
+        byte[] audiofile  = null;
         try 
         {
            // schrijf de opgenomen audio naar de meegegeven file.
@@ -45,19 +51,14 @@ public class RecordingThread implements Runnable
             AudioSystem.write(audioInputStream, targetType, outputFile);
             System.out.println("ik stop met schrijven");
             System.out.println("Naar de byte[]");
-            byte[] audiofile = Files.readAllBytes(outputFile.toPath());
+            audiofile = Files.readAllBytes(outputFile.toPath());
             System.out.println("En daar voorbij");
-            handler.setAudiofile(audiofile);                        
+                                   
         } 
         catch (IOException ex) 
         {
             Logger.getLogger(RecordingThread.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-    }
-    
-    public void stopRecording()
-    {
-        line.stop();
-        line.close();
+        }
+        return audiofile;
     }
 }

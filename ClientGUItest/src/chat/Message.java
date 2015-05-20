@@ -35,6 +35,11 @@ public class Message implements Serializable
         return bericht;
     }
     
+    public String getAfzender() 
+    {
+        return afzender;
+    }
+    
     @Override
     public String toString()
     {

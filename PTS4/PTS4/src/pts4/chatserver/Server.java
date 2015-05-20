@@ -5,6 +5,8 @@
  */
 package pts4.chatserver;
 
+import Audio.AudioHandler;
+import chat.AudioMessage;
 import chat.Message;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +28,8 @@ public class Server
     private ArrayList<String> clientNames;
     private serverThread st;
     private transient ObservableMap<String, Client> observableClients;
+    private AudioHandler handler;
+    private String naam;
     
     public Server(MapChangeListener<String,Client> mcl) 
     {
@@ -37,6 +41,25 @@ public class Server
         Thread t = new Thread(st);
         t.start();
         observableClients.addListener(mcl);
+        this.naam = "Meldkamer";
+        handler = new AudioHandler();
+    }
+    
+    public void startRecrding()
+    {
+        handler.startRecording();
+    }
+    
+    public void stopRecording()
+    {
+        handler.stopRecording();
+    }
+    
+    public void sendAudioMessage(String ontvanger)
+    {
+        AudioMessage audiomessage = new AudioMessage("Audiobericht ontvagen van: " + this.naam, this.naam, ontvanger, handler.getAudiofile());
+        audiomessage.setAudiopath(handler.getPath());
+        sendMessage(audiomessage);
     }
     
     public synchronized void removeClient(String client)
@@ -55,7 +78,12 @@ public class Server
     public synchronized void sendMessage(Message message)
     {
         System.out.println("ik stuur een bericht naar: " + message.getOntvanger());
-        clients.get(message.getOntvanger()).sendMessage(message);        
+        Client c = clients.get(message.getOntvanger());
+        if(message.getAfzender().equals("Meldkamer"))
+        {
+            c.addMessageToObservable(message);
+        }
+        c.sendMessage(message);        
     }
     
     public void sendClientName(String name)

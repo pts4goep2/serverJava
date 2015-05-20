@@ -40,18 +40,20 @@ public class Client implements Runnable
     private Server server;
     private ArrayList<Message> messages;
     private ObservableList<Message> observableMessages;
-    SimpleDateFormat sdfDate;   
     
     public Client(Socket incoming, Server server) throws IOException, ClassNotFoundException
     {
         OutputStream outStream = incoming.getOutputStream();
         InputStream inStream = incoming.getInputStream();
-        sdfDate = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss.SSS");;//dd/MM/yyyy
+        
         in = new ObjectInputStream(inStream);
         out = new ObjectOutputStream(outStream);
         this.naam = (String) in.readObject();
-        File dir = new File(naam);
-        dir.mkdir();
+        File dir = new File("Opnames\\" + naam);
+        if(!dir.exists())
+        {
+            dir.mkdir();
+        }
         System.out.println(naam);
         this.server = server;
         messages = new ArrayList<Message>();
@@ -97,11 +99,16 @@ public class Client implements Runnable
         } 
     }
     
-    private String getSystemTimeAsString()
+    public void addMessageToObservable(Message message)
     {
-        Date now = new Date();
-        String strDate = sdfDate.format(now);
-        return strDate;
+        Platform.runLater(new Runnable() 
+        {
+            @Override
+            public void run() 
+            {
+                observableMessages.add(message);
+            }
+        });
     }
     
     public String getNaam()
@@ -125,24 +132,16 @@ public class Client implements Runnable
                 System.out.println("bericht ontvangen");
                 if(message.getOntvanger().equals("Meldkamer"))
                 {
-                    Platform.runLater(new Runnable() 
-                    {
-                        @Override
-                        public void run() 
-                        {
-                            observableMessages.add(message);
-                        }
-                    });
+                    
                     if(message instanceof AudioMessage)
                     {
                         AudioMessage audiomessage = (AudioMessage) message;
-                        String tijd = getSystemTimeAsString();
-                        System.out.println(tijd);
-                        // Het is misschien handig om het schrijven naar een file door een aparte thread te laten doen.
-                        FileOutputStream fos = new FileOutputStream(new File(this.naam + "\\" + "opname " + naam + " " + tijd + ".wav"));
-                        BufferedOutputStream bos = new BufferedOutputStream(fos);
-                        bos.write(audiomessage.getAudiofile());
-                        bos.close();
+                        Thread t = new Thread(new WriteFileThread(audiomessage, this));
+                        t.start();
+                    }
+                    else
+                    {
+                        addMessageToObservable(message);
                     }
                 }
                 else
