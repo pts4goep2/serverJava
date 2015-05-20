@@ -11,6 +11,9 @@
 <%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+      
  <!-- Bootstrap Core CSS -->
  <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,13 +22,18 @@
  
  <!-- CSS -->
  <link href="css/bootstrap.css" rel="stylesheet">
-    
+  
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <title>JSP Page</title>
+        
+        
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="-1">  
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
@@ -37,7 +45,6 @@
             SELECT * FROM calamity;
         </sql:query>
 
-      
 
         </head>
         <body >
@@ -68,7 +75,7 @@
                 <c:param name="id" value="${coords.calamityid}"/>
             </c:url>
                     <li><a href="${completeURL}">${coords.calamityname}</a></li>
-                </c:forEach>
+           </c:forEach>
                     ${pageContext.session.setAttribute("HuidigIncidentSwitch", false)};
              </ul>
         </div><!--/.nav-collapse -->
@@ -77,7 +84,7 @@
   </div>
   <div class="col-sm-9">
     
-      <header id="myCarousel" class="carousel slide">
+       <header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -117,9 +124,6 @@
         <a class="right carousel-control" href="#myCarousel" data-slide="next">
             <span class="icon-next"></span>
         </a>
-      <h2>Test hierzo</h2>
-      
-  </div>
 </div>
         
    <!-- jQuery -->
@@ -134,5 +138,18 @@
         interval: 5000 //changes the speed
     });
     </script>  
+    
+    
+    
+      <input type="hidden" id="refreshed" value="no">
+    <script type="text/javascript">
+        onload=function(){
+        var e=document.getElementById("refreshed");
+        if(e.value=="no")e.value="yes";
+        else{e.value="no";location.reload();}
+        }
+    </script>
+    
     </body>
+ 
 </html>
