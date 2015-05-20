@@ -8,6 +8,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  <!-- Bootstrap Core CSS -->
@@ -62,11 +63,13 @@
                 <c:param name="name" value="${coords.calamityname}"/>
                 <c:param name="description" value="${coords.calamitydescription}"/>
                 <c:param name="goe_lat" value="${coords.calamitylatitude}"/>
-                <c:param name="goe_long" value="${coords.calamitylongitude}"/>
+                <c:param name="goe_long" value="${coords.calamitylongtitude}"/>
                 <c:param name="danger" value="${coords.calamitydanger}"/>
+                <c:param name="id" value="${coords.calamityid}"/>
             </c:url>
                     <li><a href="${completeURL}">${coords.calamityname}</a></li>
                 </c:forEach>
+                    ${pageContext.session.setAttribute("HuidigIncidentSwitch", false)};
              </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -119,13 +122,7 @@
   </div>
 </div>
         
-            
-              
-           
-            
-            ${pageContext.setAttribute("HuidigIncidentSwitch", false)};
-            
-           <!-- jQuery -->
+   <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -135,7 +132,7 @@
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
-    })
+    });
     </script>  
     </body>
 </html>

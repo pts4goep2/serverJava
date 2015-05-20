@@ -13,14 +13,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!-- Bootstrap Core CSS -->
- <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
- <!-- Custom CSS -->
- <link href="css/half-slider.css" rel="stylesheet">
- 
- <!-- CSS -->
- <link href="css/bootstrap.css" rel="stylesheet">
- 
+<!-- Custom CSS -->
+<link href="css/half-slider.css" rel="stylesheet">
+
+<!-- CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,11 +34,6 @@
                            user="cims"  password="cims"/>
 
 
-        <sql:query dataSource="${source}" var="data">
-            SELECT * FROM calamitymessage WHERE calamityid = '${param.id}';
-        </sql:query>
-
-
         <c:if test="${sessionScope.HuidigIncidentSwitch == false}">
             <jsp:useBean id="map" class="java.util.LinkedHashMap" />
             <c:set target="${map}" property="goe_lat" value="${param.goe_lat}" />
@@ -46,6 +41,7 @@
             <c:set target="${map}" property="name" value="${param.name}" />
             <c:set target="${map}" property="description" value="${param.description}" />
             <c:set target="${map}" property="danger" value="${param.danger}" />
+            <c:set target="${map}" property="id" value="${param.id}" />
 
             <c:set var="array" value="${map.values().toArray()}" />
 
@@ -79,6 +75,11 @@
     <p> Gevarenniveau: ${sessionScope.HuidigeCalamiteit[4]} </p>
 
 
+    <sql:query dataSource="${source}" var="data">
+        SELECT * FROM calamitymessage WHERE calamityid = '${sessionScope.HuidigeCalamiteit[5]}';
+    </sql:query>
+
+
 
     <h1> Berichten </h1>
     <c:forEach var="berichten" begin="0" items="${data.rows}">
@@ -87,30 +88,30 @@
 
         <section class="loginform cf">  
         </c:forEach>
-    <h2> Plaats bericht </h2>
+        <h2> Plaats bericht </h2>
 
-    <form name="post_bericht" form action="incident.jsp"  method="post" accept-charset="utf-8">  
-        <ul>  
-            <li><label for="bericht">Bericht</label>  
-                <input type="text" name="bericht" required></li>  
-            <li>
-                <input type="submit" value="Verzend"></li>  
-    </form>  
-</section>
+        <form name="post_bericht" form action="incident.jsp"  method="post" accept-charset="utf-8">  
+            <ul>  
+                <li><label for="bericht">Bericht</label>  
+                    <input type="text" name="bericht" required></li>  
+                <li>
+                    <input type="submit" value="Verzend"></li>  
+        </form>  
+    </section>
 
-<c:if test="${param.bericht != null}">
+    <c:if test="${param.bericht != null}">
 
-    <%--<sql:update dataSource="${source}" var="data">
-        INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${param.id}', '${sessionScope.user}', '${param.bericht}');
-    </sql:update>--%>
+        <%--<sql:update dataSource="${source}" var="data">
+            INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${param.id}', '${sessionScope.user}', '${param.bericht}');
+        </sql:update>--%>
 
 
-    <c:redirect url="incident.jsp">
-    </c:redirect>
+        <c:redirect url="incident.jsp">
+        </c:redirect>
 
-</c:if>
+    </c:if>
 
-        <!-- jQuery -->
+    <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -118,8 +119,8 @@
 
     <!-- Script to Activate the Carousel -->
     <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-</body>
-</html>
+            $('.carousel').carousel({
+            interval: 5000 //changes the speed
+            })
+                    < /body>
+                    < /html>
