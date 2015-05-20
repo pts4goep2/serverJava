@@ -6,17 +6,25 @@
 
 package pts4.chatserver;
 
+import chat.AudioMessage;
 import chat.Message;
-import pts4.gui.ServerGUIController;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import static javafx.collections.FXCollections.observableList;
+import javafx.collections.ObservableList;
 
 
 
@@ -30,24 +38,30 @@ public class Client implements Runnable
     private ObjectOutputStream out;
     private String naam;
     private Server server;
-    private ServerGUIController controller;
+    private ArrayList<Message> messages;
+    private ObservableList<Message> observableMessages;
+    SimpleDateFormat sdfDate;   
+    
     public Client(Socket incoming, Server server) throws IOException, ClassNotFoundException
     {
         OutputStream outStream = incoming.getOutputStream();
         InputStream inStream = incoming.getInputStream();
-
+        sdfDate = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss.SSS");;//dd/MM/yyyy
         in = new ObjectInputStream(inStream);
         out = new ObjectOutputStream(outStream);
         this.naam = (String) in.readObject();
+        File dir = new File(naam);
+        dir.mkdir();
         System.out.println(naam);
         this.server = server;
+        messages = new ArrayList<Message>();
+        observableMessages = observableList(messages);
     }
     
-    public void sendMessage(String bericht)
+    public void sendMessage(Message message)
     {
         try 
         {
-            Message message = new Message(bericht, this.naam, "Meldkamer");
             out.writeObject(message);
             out.flush();
         } 
@@ -83,15 +97,21 @@ public class Client implements Runnable
         } 
     }
     
+    private String getSystemTimeAsString()
+    {
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return strDate;
+    }
+    
     public String getNaam()
     {
         return this.naam;
     }
     
-    public void setServerController(ServerGUIController controller)
+    public ObservableList<Message> getMessages()
     {
-        this.controller = controller;
-        System.out.println("controller gezet");
+        return this.observableMessages;
     }
 
     @Override
@@ -105,14 +125,29 @@ public class Client implements Runnable
                 System.out.println("bericht ontvangen");
                 if(message.getOntvanger().equals("Meldkamer"))
                 {
-                    if(controller != null)
+                    Platform.runLater(new Runnable() 
                     {
-                        controller.AddItemListview(message.toString());
+                        @Override
+                        public void run() 
+                        {
+                            observableMessages.add(message);
+                        }
+                    });
+                    if(message instanceof AudioMessage)
+                    {
+                        AudioMessage audiomessage = (AudioMessage) message;
+                        String tijd = getSystemTimeAsString();
+                        System.out.println(tijd);
+                        // Het is misschien handig om het schrijven naar een file door een aparte thread te laten doen.
+                        FileOutputStream fos = new FileOutputStream(new File(this.naam + "\\" + "opname " + naam + " " + tijd + ".wav"));
+                        BufferedOutputStream bos = new BufferedOutputStream(fos);
+                        bos.write(audiomessage.getAudiofile());
+                        bos.close();
                     }
                 }
                 else
                 {
-                    server.sendMessage(message.getBericht(), message.getOntvanger());
+                    server.sendMessage(message);
                 }
             } 
             catch (IOException | ClassNotFoundException ex) 

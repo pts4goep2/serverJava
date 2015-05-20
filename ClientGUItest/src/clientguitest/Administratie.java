@@ -64,9 +64,9 @@ public class Administratie
         handler.stopRecording();
     }
     
-    public void setChatClient(String user, ClienttestGUIController controller)
+    public void setChatClient(String user)
     {
-        cc = new ChatClient(controller, user);        
+        cc = new ChatClient(user);        
         cc.setOntvanger(user);
     }
     

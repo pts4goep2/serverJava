@@ -28,22 +28,24 @@ import javafxapplication5.ClienttestGUIController;
 public class ChatClient 
 {
     private ObjectOutputStream out;
-    private ClienttestGUIController controller;
     private Thread t;
     private String naam;
     private ArrayList<String> clients;
     private ObservableList<String> observableClients;
+    private ArrayList<Message> messages;
+    private ObservableList<Message> observableMessages;
     private String ontvanger;
     
-    public ChatClient(ClienttestGUIController controller, String user)
+    public ChatClient(String user)
     {
-        this.controller = controller;
         OutputStream outStream = null;
         try 
         {
             clients = new ArrayList<String>();
             observableClients = observableList(clients);
-            Socket s = new Socket("145.93.114.132", 8189);
+            messages = new ArrayList<Message>();
+            observableMessages = observableList(messages);
+            Socket s = new Socket("localhost", 8189);
             outStream = s.getOutputStream();
             InputStream inStream = s.getInputStream();
             // Let op: volgorde is van belang!
@@ -61,6 +63,11 @@ public class ChatClient
         }        
     }
 
+    public ObservableList<Message> getObservableMessages() 
+    {
+        return observableMessages;
+    }
+    
     public void setOntvanger(String ontvanger) 
     {
         this.ontvanger = ontvanger;
@@ -71,6 +78,7 @@ public class ChatClient
         try 
         {
             Message message = new Message(bericht, this.naam, ontvanger);
+            addMessage(message);
             out.writeObject(message);
             out.flush();
         } 
@@ -87,6 +95,7 @@ public class ChatClient
             AudioMessage audiomessage = new AudioMessage("Audiobericht ontvangen van: " + this.naam, this.naam, ontvanger, audiofile);
             out.writeObject(audiomessage);
             out.flush();
+            
         }
         catch(IOException ex)
         {
@@ -94,9 +103,17 @@ public class ChatClient
         }                
     }
     
-    public void addMessagetoScreen(String message)
+    public void addMessage(Message message)
     {
-        controller.addItemListView(message);
+        Platform.runLater(new Runnable() 
+        {
+            @Override
+            public void run() 
+            {
+                observableMessages.add(message);
+            }
+        });
+        
     }
     
     public void addClient(String name)

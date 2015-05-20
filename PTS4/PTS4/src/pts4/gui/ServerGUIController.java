@@ -5,27 +5,15 @@
  */
 package pts4.gui;
 
-import java.io.IOException;
+import chat.Message;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import pts4.chatserver.Client;
 import pts4.chatserver.Server;
-import pts4.chatserver.Server;
-import pts4.gui.*;
 
 
 /**
@@ -54,7 +42,7 @@ public class ServerGUIController extends AnchorPane implements Initializable {
     {
         String bericht = input.getText();
         input.clear();
-        server.sendMessage(bericht, communicator);
+        server.sendMessage(new Message(bericht, "Meldkamer", communicator));
         this.AddItemListview(bericht);
     }
     
@@ -74,6 +62,6 @@ public class ServerGUIController extends AnchorPane implements Initializable {
     {
         this.server = s;
         this.communicator = communicator;
-        server.addControllerToClient(this, communicator);
+        this.OutPut.setItems(server.getClient(communicator).getMessages());
     }
 }

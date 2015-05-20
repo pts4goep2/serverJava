@@ -100,44 +100,9 @@ public class GUIController implements Initializable, MapChangeListener<String, C
     }
     
     @FXML
-    public void itemSelected() throws MalformedURLException, URISyntaxException, InterruptedException, IOException {
-//        try{
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServerGUI.fxml"));
-//            ServerGUIController controller = fxmlLoader.<ServerGUIController>getController();
-//            controller.setServer(admin.getServer(), (String) cbUnits.getSelectionModel().getSelectedItem());
-//            Parent root1 = (Parent) fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.initStyle(StageStyle.UNDECORATED);
-//            stage.setTitle("Chat");
-//            stage.setScene(new Scene(root1));  
-//            stage.show();
-//          }
-//        catch (IOException e) {
-//            
-//        }
-        
-        
-        
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerGUI.fxml"));
-//        ServerGUIController controller = new ServerGUIController();
-//        controller.setServer(admin.getServer(), (String) cbUnits.getSelectionModel().getSelectedItem());
-//        loader.setController(controller);
-//        loader.setRoot(controller);
-//        Parent root;
-//        try {
-//            root = (Parent) loader.load();
-//            Scene scene = new Scene(root);
-//            Stage stage = new Stage();
-//            stage.setScene(scene);
-//            stage.show();
-//        } catch (IOException ex) {
-//            System.out.println("Yo maat des nie best");
-//        }
-        
-        //ServerGUIController controller = new ServerGUIController();
-        //controller.openGui(admin.getServer(), (String) cbUnits.getSelectionModel().getSelectedItem());
-        //controller.setServer(admin.getServer(), (String) cbUnits.getSelectionModel().getSelectedItem());
+    public void itemSelected() throws MalformedURLException, URISyntaxException, InterruptedException, IOException 
+    {
+        System.out.println("hallo");
         URL location1 = getClass().getResource("ServerGUI.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location1);

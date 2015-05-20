@@ -5,6 +5,7 @@
  */
 package pts4.chatserver;
 
+import chat.Message;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,7 +20,6 @@ import javafx.collections.ObservableMap;
  * @author pieter
  */
 
-import pts4.gui.ServerGUIController;
 public class Server
 {
     private Map<String, Client> clients;
@@ -41,21 +41,21 @@ public class Server
     
     public synchronized void removeClient(String client)
     {
-        Platform.runLater(new Runnable() {
-
+        Platform.runLater(new Runnable() 
+        {
             @Override
             public void run() {
                 observableClients.remove(client);
+                clientNames.remove(client);
                 sendClientName(client);
             }
         });        
     }
     
-    public synchronized void sendMessage(String Message, String naam)
+    public synchronized void sendMessage(Message message)
     {
-        System.out.println("ik stuur een bericht naar: " + naam);
-        clients.get(naam).sendMessage(Message);
-        
+        System.out.println("ik stuur een bericht naar: " + message.getOntvanger());
+        clients.get(message.getOntvanger()).sendMessage(message);        
     }
     
     public void sendClientName(String name)
@@ -70,22 +70,23 @@ public class Server
         }
     }
     
-    public void addControllerToClient(ServerGUIController controller, String Client)
-    {
-        clients.get(Client).setServerController(controller);
-    }
-    
     public void putClient(Client client)
     {
-        Platform.runLater(new Runnable() {
-
+        Platform.runLater(new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 client.sendClients(clientNames);
                 clientNames.add(client.getNaam());  
                 sendClientName(client.getNaam());
                 observableClients.put(client.getNaam(), client);   
             }
         });        
+    }
+    
+    public Client getClient(String naam)
+    {
+        return clients.get(naam);
     }
 }

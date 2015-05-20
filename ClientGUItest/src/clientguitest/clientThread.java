@@ -50,7 +50,7 @@ public class ClientThread implements Runnable
                 if(object instanceof Message)
                 {
                     Message message = (Message) object;
-                    cc.addMessagetoScreen(message.toString());
+                    cc.addMessage(message);
                 }                
             } 
             catch (IOException | ClassNotFoundException ex) 

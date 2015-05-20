@@ -38,6 +38,7 @@ public class ClienttestGUIController implements Initializable
     private Timer timer;
     private boolean pressed;
     private int teller;
+    private boolean audiomessage;
 
     /**
      * Initializes the controller class.
@@ -45,8 +46,7 @@ public class ClienttestGUIController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        admin = Administratie.getInstance();
-        
+        admin = Administratie.getInstance();        
     }
     
     @FXML
@@ -60,10 +60,18 @@ public class ClienttestGUIController implements Initializable
     @FXML
     private void btnSend_Click(ActionEvent event) 
     {
-       String message = input.getText();
-       input.clear();
-       output.getItems().add(message);
-       admin.sendMessage(message);
+       if(!audiomessage)
+       {
+           String message = input.getText();
+           input.clear();
+           admin.sendMessage(message);
+       }
+       else
+       {
+           input.clear();
+           admin.sendAudioMessage();
+           audiomessage = false;
+       }
     }
     
     @FXML
@@ -83,12 +91,12 @@ public class ClienttestGUIController implements Initializable
             btnRecord.setText("Neem nieuw audiobericht op");
             admin.stopRecordingAudio();
             System.out.println("audio opnemen gestopt");
-            admin.sendAudioMessage();
             timer.purge();
             timer.cancel();
             teller = 0;
             input.setText("druk op send om het audiobericht te versturen");
-            lbRecordTimer.setText(String.valueOf(teller));            
+            lbRecordTimer.setText(String.valueOf(teller));
+            audiomessage = true;
         }
     }
     
@@ -114,11 +122,6 @@ public class ClienttestGUIController implements Initializable
         timer.schedule(task, 0 , 1000);
     }
     
-    private void stopTimer()
-    {
-        timer.cancel();
-    }
-    
     public void addItemListView(String item)
     {
         Platform.runLater(new Runnable() {
@@ -133,9 +136,11 @@ public class ClienttestGUIController implements Initializable
     
     public void setUser(String user)
     {
-        admin.setChatClient(user, this);
+        admin.setChatClient(user);
+        admin.setOntvanger("Meldkamer");
         lbGebruikersnaam.setText(user);
         cbBeschikbareUnits.setItems(admin.getCc().getObservableClients());
         output.getItems().add("[Algemeen]: je coummuniceerd nu met de meldkamer");
+        output.setItems(admin.getCc().getObservableMessages());
     }
 }
