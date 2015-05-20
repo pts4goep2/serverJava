@@ -31,7 +31,7 @@
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://145.144.241.47:3306/cimsdb"
                            user="cims"  password="cims"/>
-
+        
         <sql:query dataSource="${source}" var="data">
             SELECT * FROM calamity;
         </sql:query>
@@ -58,13 +58,14 @@
             <img src="resources/img/logo1.png" alt="logo">
              <ul class="nav navbar-nav">
             <c:forEach var="coords" begin="0" items="${data.rows}">            
-                    <c:url value="/incident.jsp" var="completeURL">
-                        <c:param name="name" value="${coords.name}"/>
-                        <c:param name="description" value="${coords.description}"/>
-                        <c:param name="goe_lat" value="${coords.goe_lat}"/>
-                        <c:param name="goe_long" value="${coords.goe_long}"/>
-                    </c:url>
-                    <li><a href="${completeURL}">${coords.name}</a></li>
+            <c:url value="/incident.jsp" var="completeURL">
+                <c:param name="name" value="${coords.calamityname}"/>
+                <c:param name="description" value="${coords.calamitydescription}"/>
+                <c:param name="goe_lat" value="${coords.calamitylatitude}"/>
+                <c:param name="goe_long" value="${coords.calamitylongitude}"/>
+                <c:param name="danger" value="${coords.calamitydanger}"/>
+            </c:url>
+                    <li><a href="${completeURL}">${coords.calamityname}</a></li>
                 </c:forEach>
              </ul>
         </div><!--/.nav-collapse -->

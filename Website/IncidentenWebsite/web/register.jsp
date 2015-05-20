@@ -16,7 +16,7 @@
         <title>JSP Page</title>
         
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.156:3306/mydb"
+                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
                            user="cims"  password="cims"/>
     </head>
     <body>
@@ -44,7 +44,7 @@
 
                     <c:if test="${param.firstname != null}">
                         <sql:update dataSource="${source}" var="data">
-                            INSERT INTO civilian (first_name, last_name, username, password, email, birthdate, idaddress) 
+                            INSERT INTO person (personfirstname, personlastname, personusername, personpassword, personemail, personbirthdate) 
                             VALUES ('${param.firstname}', '${param.lastname}', '${param.username}', '${param.password}', '${param.email}', '${param.birthdate}', 1);
                         </sql:update>
                             <c:redirect url="register_process.jsp"/>

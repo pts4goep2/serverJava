@@ -33,11 +33,11 @@
         <c:if test="${param.username != null}">
 
             <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                               url="jdbc:mysql://145.144.240.156:3306/mydb"
-                               user="cims"  password="cims"/>
+                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
+                           user="cims"  password="cims"/>
 
             <sql:query dataSource="${source}" var="data">
-                SELECT * FROM civilian WHERE USERNAME = '${param.username}' AND PASSWORD = '${param.password}'
+                SELECT * FROM person WHERE personusername = '${param.username}' AND personpassword = '${param.password}'
             </sql:query>
 
             <c:forEach var="persoon" begin="0" items="${data.rows}">
