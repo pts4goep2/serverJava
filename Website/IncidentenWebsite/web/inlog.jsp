@@ -3,7 +3,13 @@
     Created on : Apr 15, 2015, 12:03:30 PM
     Author     : Indra
 --%>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
+
+
+<!-- CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
@@ -16,18 +22,21 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <div class="wrapper">
         <section class="loginform cf">  
-            <form name="login" form action="inlog.jsp" method="post" accept-charset="utf-8">  
-                <ul>  
-                    <li><label for="username">Username</label>  
-                        <input type="text" name="username" required></li>  
-                    <li><label for="password">Password</label>  
-                        <input type="password" name="password" placeholder="password" required></li>  
-                    <li>  
-                        <input type="submit" value="Login"></li>  
-                </ul>  
+            <form id="login" form action="inlog.jsp" method="post" accept-charset="utf-8">  
+                <img src="resources/img/logo1.png" alt="logo">
+                <h1> Login </h1>
+                   <label for="username">Username</label>  
+                        <input type="text" name="username" placeholder="username" required> 
+                    <label for="password">Password</label>  
+                        <input type="password" name="password" placeholder="password" required> 
+                      
+                        <input type="submit" value="Login"> 
+                 
             </form>  
         </section>
+        </div>
 
 
         <c:if test="${param.username != null}">

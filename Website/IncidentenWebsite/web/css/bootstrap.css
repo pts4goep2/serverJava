@@ -5,13 +5,18 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
 body {
-  margin: 0;
+  width: 960px;
+  background-color: #204d74;
+  margin: 0 auto;
 }
 article,
 aside,
@@ -6581,4 +6586,41 @@ button.close {
     display: none !important;
   }
 }
+
+.wrapper{
+    margin-top: 50px;
+    margin-left: 400px; 
+}
+
+.wrapper1{
+    margin-top: 50px;
+    margin-left: 260px; 
+    display: block;
+}
+
+.wrapper1 img{
+    margin-bottom: 20px;
+    
+}
+
+#login label{
+        list-style: none;
+        display: block;
+        overflow: hidden;
+        font-family: arial;
+        font-size: 14px;
+        letter-spacing: 1px;
+}
+
+#register label{
+        list-style: none;
+        display: block;
+        overflow: hidden;
+        font-family: arial;
+        font-size: 14px;
+        letter-spacing: 1px;
+}
+
+
+
 /*# sourceMappingURL=bootstrap.css.map */

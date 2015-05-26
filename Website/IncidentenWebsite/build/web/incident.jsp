@@ -21,9 +21,13 @@
 <!-- CSS -->
 <link href="css/bootstrap.css" rel="stylesheet">
 
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
+        <div class="wrapper">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script
@@ -111,16 +115,7 @@
 
     </c:if>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+</div>
+ </body>
+ </html>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-            $('.carousel').carousel({
-            interval: 5000 //changes the speed
-            })
-                    < /body>
-                    < /html>

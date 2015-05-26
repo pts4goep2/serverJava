@@ -77,6 +77,9 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("      \r\n");
       out.write(" <!-- Bootstrap Core CSS -->\r\n");
       out.write(" <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\r\n");
       out.write("\r\n");
@@ -85,13 +88,18 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write(" \r\n");
       out.write(" <!-- CSS -->\r\n");
       out.write(" <link href=\"css/bootstrap.css\" rel=\"stylesheet\">\r\n");
-      out.write("    \r\n");
+      out.write("  \r\n");
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html>\r\n");
       out.write("    <head>\r\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n");
       out.write("        \r\n");
       out.write("        <title>JSP Page</title>\r\n");
+      out.write("        \r\n");
+      out.write("        \r\n");
+      out.write("\t<meta http-equiv=\"pragma\" content=\"no-cache\">\r\n");
+      out.write("\t<meta http-equiv=\"cache-control\" content=\"no-cache\">\r\n");
+      out.write("\t<meta http-equiv=\"expires\" content=\"-1\">  \r\n");
       out.write("        <script\r\n");
       out.write("        src=\"https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true\"></script>\r\n");
       out.write("\r\n");
@@ -105,7 +113,6 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
         return;
       out.write("\r\n");
       out.write("\r\n");
-      out.write("      \r\n");
       out.write("\r\n");
       out.write("        </head>\r\n");
       out.write("        <body >\r\n");
@@ -140,7 +147,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("  </div>\r\n");
       out.write("  <div class=\"col-sm-9\">\r\n");
       out.write("    \r\n");
-      out.write("      <header id=\"myCarousel\" class=\"carousel slide\">\r\n");
+      out.write("       <header id=\"myCarousel\" class=\"carousel slide\">\r\n");
       out.write("        <!-- Indicators -->\r\n");
       out.write("        <ol class=\"carousel-indicators\">\r\n");
       out.write("            <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n");
@@ -180,9 +187,6 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\r\n");
       out.write("            <span class=\"icon-next\"></span>\r\n");
       out.write("        </a>\r\n");
-      out.write("      <h2>Test hierzo</h2>\r\n");
-      out.write("      \r\n");
-      out.write("  </div>\r\n");
       out.write("</div>\r\n");
       out.write("        \r\n");
       out.write("   <!-- jQuery -->\r\n");
@@ -197,7 +201,20 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        interval: 5000 //changes the speed\r\n");
       out.write("    });\r\n");
       out.write("    </script>  \r\n");
+      out.write("    \r\n");
+      out.write("    \r\n");
+      out.write("    \r\n");
+      out.write("      <input type=\"hidden\" id=\"refreshed\" value=\"no\">\r\n");
+      out.write("    <script type=\"text/javascript\">\r\n");
+      out.write("        onload=function(){\r\n");
+      out.write("        var e=document.getElementById(\"refreshed\");\r\n");
+      out.write("        if(e.value==\"no\")e.value=\"yes\";\r\n");
+      out.write("        else{e.value=\"no\";location.reload();}\r\n");
+      out.write("        }\r\n");
+      out.write("    </script>\r\n");
+      out.write("    \r\n");
       out.write("    </body>\r\n");
+      out.write(" \r\n");
       out.write("</html>\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
@@ -307,7 +324,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write('>');
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${coords.calamityname}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("</a></li>\r\n");
-          out.write("                ");
+          out.write("           ");
           int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
           if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
             break;
