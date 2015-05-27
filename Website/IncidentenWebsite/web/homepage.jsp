@@ -38,7 +38,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.233:3306/cimsdb"
                            user="cims"  password="cims"/>
         
         <sql:query dataSource="${source}" var="data">

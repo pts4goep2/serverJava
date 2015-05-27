@@ -27,14 +27,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div class="wrapper">
+        <div class="wrapper2">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.233:3306/cimsdb"
                            user="cims"  password="cims"/>
 
 
@@ -75,7 +75,7 @@
 
 <body >
     <h1> ${sessionScope.HuidigeCalamiteit[2]}</h1>
-    <a> ${sessionScope.HuidigeCalamiteit[3]}   </a>
+    <p> ${sessionScope.HuidigeCalamiteit[3]}   </p>
     <p> Gevarenniveau: ${sessionScope.HuidigeCalamiteit[4]} </p>
 
 
@@ -88,7 +88,7 @@
     <h1> Berichten </h1>
     <c:forEach var="berichten" begin="0" items="${data.rows}">
 
-        <a>${berichten.personid} ${berichten.calamitymessagedate} ${berichten.calamitymessage}</a>
+        <p>${berichten.personid} ${berichten.calamitymessagedate} ${berichten.calamitymessage}</p>
 
         <section class="loginform cf">  
         </c:forEach>

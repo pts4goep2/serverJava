@@ -42,7 +42,7 @@
         <c:if test="${param.username != null}">
 
             <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.233:3306/cimsdb"
                            user="cims"  password="cims"/>
 
             <sql:query dataSource="${source}" var="data">
