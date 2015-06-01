@@ -6,7 +6,7 @@
 package pts4.gui;
 
 import chat.AudioMessage;
-import chat.Message;
+import chat.ChatMessage;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class ServerGUIController extends AnchorPane implements Initializable {
         {
             String bericht = input.getText();
             input.clear();
-            server.sendMessage(new Message(bericht, "Meldkamer", communicator));
+            server.sendMessage(new ChatMessage(bericht, "Meldkamer", communicator));
         }
         else
         {
@@ -79,7 +79,7 @@ public class ServerGUIController extends AnchorPane implements Initializable {
     @FXML
     public void outputItem_Click(MouseEvent arg0) throws LineUnavailableException, IOException, UnsupportedAudioFileException
     {
-        Message message = (Message) OutPut.getSelectionModel().getSelectedItem();
+        ChatMessage message = (ChatMessage) OutPut.getSelectionModel().getSelectedItem();
         if(message instanceof AudioMessage)
         {
             AudioMessage audmessage = (AudioMessage) message;

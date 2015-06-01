@@ -6,7 +6,7 @@
 package clientguitest;
 
 import chat.AudioMessage;
-import chat.Message;
+import chat.ChatMessage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +20,9 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
-import javafxapplication5.ClienttestGUIController;
+import GUI.ClienttestGUIController;
+import chat.EmergencyUnit;
+import java.util.Random;
 
 /**
  *
@@ -30,30 +32,34 @@ public class ChatClient
 {
     private ObjectOutputStream out;
     private Thread t;
-    private String naam;
+    private EmergencyUnit unit;
     private ArrayList<String> clients;
     private ObservableList<String> observableClients;
-    private ArrayList<Message> messages;
-    private ObservableList<Message> observableMessages;
+    private ArrayList<ChatMessage> messages;
+    private ObservableList<ChatMessage> observableMessages;
     private String ontvanger;
+    private Random random;
     
-    public ChatClient(String user)
+    public ChatClient(String user, int type)
     {
         OutputStream outStream = null;
         try 
         {
             clients = new ArrayList<String>();
+            random = new Random();
             observableClients = observableList(clients);
-            messages = new ArrayList<Message>();
+            messages = new ArrayList<ChatMessage>();
             observableMessages = observableList(messages);
-            Socket s = new Socket("localhost", 8189);
+            Socket s = new Socket("145.93.34.131", 8189);
             outStream = s.getOutputStream();
             InputStream inStream = s.getInputStream();
             // Let op: volgorde is van belang!
             out = new ObjectOutputStream(outStream);
             ObjectInputStream in = new ObjectInputStream(inStream);
-            this.naam = user;
-            out.writeObject(naam);
+            this.unit = new EmergencyUnit(user, type);
+            unit.setLatidude(generateRandomLatidude());
+            unit.setLongitude(generateRandomLongitude());
+            out.writeObject(unit);
             ClientThread ct = new ClientThread(in,this);
             t = new Thread(ct);
             t.start();
@@ -68,8 +74,18 @@ public class ChatClient
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
+    
+    private double generateRandomLatidude()
+    {
+        return 4.0383366 + (6.0383366 - 4.0383366) * random.nextDouble();
+    }
+    
+    private double generateRandomLongitude()
+    {
+        return 51.5467726 + (52.400000 - 51.5467726) * random.nextDouble();
+    }
 
-    public ObservableList<Message> getObservableMessages() 
+    public ObservableList<ChatMessage> getObservableMessages() 
     {
         return observableMessages;
     }
@@ -83,7 +99,7 @@ public class ChatClient
     {
         try 
         {
-            Message message = new Message(bericht, this.naam, ontvanger);
+            ChatMessage message = new ChatMessage(bericht, this.unit.getNaam(), ontvanger);
             out.writeObject(message);
             out.flush();
             addMessage(message);
@@ -98,7 +114,7 @@ public class ChatClient
     {
         try
         {
-            AudioMessage audiomessage = new AudioMessage("Audiobericht ontvangen van: " + this.naam, this.naam, ontvanger, audiofile);
+            AudioMessage audiomessage = new AudioMessage("Audiobericht ontvangen van: " + this.unit.getNaam(), this.unit.getNaam(), ontvanger, audiofile);
             audiomessage.setAudiopath(path);
             out.writeObject(audiomessage);
             out.flush();
@@ -111,7 +127,7 @@ public class ChatClient
         }                
     }
     
-    public void addMessage(Message message)
+    public void addMessage(ChatMessage message)
     {
         Platform.runLater(new Runnable() 
         {

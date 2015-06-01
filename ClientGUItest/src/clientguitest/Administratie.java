@@ -6,23 +6,35 @@
 package clientguitest;
 
 import Audio.AudioHandler;
-import Database.*;
+import CommunicationClient.ComManager;
+import CommunicationClient.MessageListener;
+import Protocol.Message;
+import Protocol.MessageBuilder;
+import java.io.StringReader;
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
 
 /**
  *
  * @author Leo
  */
-public class Administratie 
+public class Administratie implements MessageListener
 {
-    private IDatabase database;
     private static Administratie admin = null;
     private AudioHandler handler;
     private ChatClient cc;
+    private ComManager commanager;
+    private MessageBuilder mBuilder;
+    private boolean found;
     
     private Administratie()
     {
         //database = new SQL();
         handler = new AudioHandler();
+        commanager = ComManager.getInstance();
+        commanager.addListener(this);
+        mBuilder = new MessageBuilder();
     }
 
     public void setOntvanger(String naam) 
@@ -35,9 +47,15 @@ public class Administratie
         return cc;
     } 
     
-    public String loginEmergencyService(String username, String password, int id)
+    public boolean loginEmergencyService(String username, String password)
     {
-        return database.loginPerson(username, password);
+        commanager.addMessage(mBuilder.buildLoginMessage(username, password));
+//        while(!found)
+//        {
+//            
+//        }
+        found = false;
+        return true;
     }
     
     public static Administratie getInstance()
@@ -61,7 +79,7 @@ public class Administratie
     
     public void setChatClient(String user)
     {
-        cc = new ChatClient(user);        
+        cc = new ChatClient(user, 1);        
         cc.setOntvanger(user);
     }
     
@@ -73,5 +91,63 @@ public class Administratie
     public void sendAudioMessage()
     {
         cc.sendAudioMessage(handler.getAudiofile(), handler.getPath());
+    }
+    
+    private void readLoginResponse(Message message)
+    {
+        int personid = 0;
+        int persontypeid = 0;
+        boolean configurator = false;
+
+        StringReader reader = new StringReader(message.getText());
+        JsonParser parser = Json.createParser(reader);
+        Event event = parser.next();
+
+        while (parser.hasNext()) {
+            if (event.equals(Event.KEY_NAME)) {
+                String keyname = parser.getString();
+                event = parser.next();
+
+                switch (keyname) {
+                    case "personid":
+                        personid = parser.getInt();
+                        break;
+                    case "persontypeid":
+                        persontypeid = parser.getInt();
+                        break;
+                    case "personconfigurator":
+                        if (parser.getString() == "YES") {
+                            configurator = true;
+                        } else {
+                            configurator = false;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                event = parser.next();
+            } else {
+                event = parser.next();
+            }
+        }
+        found = true;
+        //hier de code met bovenstaande variabelen
+
+    }
+
+    @Override
+    public void proces(Message message) 
+    {
+        switch (message.getType()) {
+            case MessageBuilder.LoginReply:
+                System.out.println(message.getText());
+                //readLoginResponse(message);
+                
+                //setChatClient(username, type);
+                break;
+
+            default:
+                break;
+        }
     }
 }

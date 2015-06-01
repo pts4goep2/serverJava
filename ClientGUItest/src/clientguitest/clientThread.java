@@ -7,7 +7,7 @@
 package clientguitest;
 
 import chat.AudioMessage;
-import chat.Message;
+import chat.ChatMessage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -62,9 +62,9 @@ public class ClientThread implements Runnable
                     System.out.println((String) object);
                     cc.addClient((String) object);
                 }
-                if(object instanceof Message)
+                if(object instanceof ChatMessage)
                 {
-                    Message message = (Message) object;
+                    ChatMessage message = (ChatMessage) object;
                     if(message instanceof AudioMessage)
                     {
                         AudioMessage audiomessage = (AudioMessage) message;

@@ -7,7 +7,7 @@ package pts4.chatserver;
 
 import Audio.AudioHandler;
 import chat.AudioMessage;
-import chat.Message;
+import chat.ChatMessage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,7 +26,7 @@ public class Server
 {
     private Map<String, Client> clients;
     private ArrayList<String> clientNames;
-    private serverThread st;
+    private ServerThread st;
     private transient ObservableMap<String, Client> observableClients;
     private AudioHandler handler;
     private String naam;
@@ -37,7 +37,7 @@ public class Server
         observableClients = observableMap(clients);
         clientNames = new ArrayList<String>();
         clientNames.add("Meldkamer");
-        st = new serverThread(this);
+        st = new ServerThread(this);
         Thread t = new Thread(st);
         t.start();
         observableClients.addListener(mcl);
@@ -75,7 +75,7 @@ public class Server
         });        
     }
     
-    public synchronized void sendMessage(Message message)
+    public synchronized void sendMessage(ChatMessage message)
     {
         System.out.println("ik stuur een bericht naar: " + message.getOntvanger());
         Client c = clients.get(message.getOntvanger());

@@ -9,7 +9,7 @@ package chat;
  *
  * @author Leo
  */
-public class AudioMessage extends Message
+public class AudioMessage extends ChatMessage
 {
     private byte[] audiofile;
     private String audiopath;
