@@ -8,6 +8,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,14 +28,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <div class="wrapper">
+        <div class="wrapper2">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
+                           url="jdbc:mysql://145.144.241.206:3306/cimsdb"
                            user="cims"  password="cims"/>
 
 
@@ -75,7 +76,7 @@
 
 <body >
     <h1> ${sessionScope.HuidigeCalamiteit[2]}</h1>
-    <a> ${sessionScope.HuidigeCalamiteit[3]}   </a>
+    <p> ${sessionScope.HuidigeCalamiteit[3]}   </p>
     <p> Gevarenniveau: ${sessionScope.HuidigeCalamiteit[4]} </p>
 
 
@@ -88,7 +89,7 @@
     <h1> Berichten </h1>
     <c:forEach var="berichten" begin="0" items="${data.rows}">
 
-        <a>${berichten.personid} ${berichten.calamitymessagedate} ${berichten.calamitymessage}</a>
+        <p>Person ID: ${berichten.personid} - ${berichten.calamitymessagedate} ${berichten.calamitymessage}</p>
 
         <section class="loginform cf">  
         </c:forEach>
@@ -104,10 +105,11 @@
     </section>
 
     <c:if test="${param.bericht != null}">
-
-        <%--<sql:update dataSource="${source}" var="data">
-            INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${param.id}', '${sessionScope.user}', '${param.bericht}');
-        </sql:update>--%>
+        
+        <c:set var="now" value="<%=new java.util.Date()%>" />
+        <sql:update dataSource="${source}" var="data">
+            INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${sessionScope.HuidigeCalamiteit[5]}', '2', '${param.bericht}');
+        </sql:update>
 
 
         <c:redirect url="incident.jsp">

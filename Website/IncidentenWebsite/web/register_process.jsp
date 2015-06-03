@@ -21,7 +21,7 @@
         <div class="wrapper1">
             <img src="resources/img/logo1.png" alt="logo">
             
-        <p>Registratie is gelukt. Klik <a href="inlog.jsp">hier</a> om naar het inlogscherm te gaan.</p>
+        <p>Registratie is gelukt. Klik <a href="homepage.jsp">hier</a> om naar het inlogscherm te gaan.</p>
         </div>
     </body>
 </html>

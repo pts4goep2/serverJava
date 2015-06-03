@@ -6588,9 +6588,8 @@ button.close {
 }
 
 .wrapper{
-    margin-top: 50px;
-    margin-left: 400px; 
-}
+    margin-top: 10px;
+    margin-left: 350px; 
 
 .wrapper1{
     margin-top: 50px;
@@ -6605,7 +6604,6 @@ button.close {
 
 #login label{
         list-style: none;
-        display: block;
         overflow: hidden;
         font-family: arial;
         font-size: 14px;
@@ -6621,6 +6619,14 @@ button.close {
         letter-spacing: 1px;
 }
 
+.wrapper2{
+    margin-top: 50px;
+    margin-left: 260px; 
+}
 
+.wrapper3{
+    margin-top: 50px;
+    margin-left: 400px; 
+}
 
 /*# sourceMappingURL=bootstrap.css.map */

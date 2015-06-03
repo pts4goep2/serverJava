@@ -24,11 +24,11 @@
         <title>JSP Page</title>
         
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.242.9:3306/cimsdb"
+                           url="jdbc:mysql://145.144.241.206:3306/cimsdb"
                            user="cims"  password="cims"/>
     </head>
     <body>
-        <div class="wrapper">
+        <div class="wrapper3">
         <section class="registerform cf">  
             <form id="register" form action="register.jsp" method="post" accept-charset="utf-8">  
                 <img src="resources/img/logo1.png" alt="logo">

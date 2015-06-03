@@ -92,23 +92,27 @@ public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("        <div class=\"wrapper\">\r\n");
-      out.write("        <section class=\"loginform cf\">  \r\n");
+      out.write("        <div class=\"wrapper3\">\r\n");
+      out.write("        <section class=\"registerform cf\">  \r\n");
       out.write("            <form id=\"register\" form action=\"register.jsp\" method=\"post\" accept-charset=\"utf-8\">  \r\n");
-      out.write("                 <img src=\"resources/img/logo1.png\" alt=\"logo\">\r\n");
-      out.write("                 <h1> Register </h1>\r\n");
-      out.write("                    <label for=\"firstname\">Firstname</label>  \r\n");
-      out.write("                        <input type=\"text\" name=\"firstname\" placeholder=\"firstname\" required id=\"firstname\"> \r\n");
-      out.write("                    <label for=\"lastname\">Lastname</label>  \r\n");
-      out.write("                        <input type=text\" name=\"lastname\" placeholder=\"lastname\" required id=\"lastname\">\r\n");
-      out.write("                    <label for=\"username\">Username</label>  \r\n");
-      out.write("                        <input type=\"text\" name=\"username\" placeholder=\"username\" required id=\"username\">  \r\n");
-      out.write("                    <label for=\"password\">Password</label>  \r\n");
-      out.write("                        <input type=\"password\" name=\"password\" placeholder=\"password\" required id=\"password\">\r\n");
-      out.write("                    <label for=\"email\">Email</label>  \r\n");
-      out.write("                        <input type=\"text\" name=\"email\" placeholder=\"email\" required id=\"email\"> \r\n");
-      out.write("                    <label for=\"birthdate\">Birthdate</label>  \r\n");
-      out.write("                        <input type=\"text\" name=\"birthdate\" placeholder=\"birthdate\" required id=\"birthdate\"> \r\n");
+      out.write("                <img src=\"resources/img/logo1.png\" alt=\"logo\">\r\n");
+      out.write("                <h1> Register </h1>\r\n");
+      out.write("                <label for=\"firstname\">Firstname</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"firstname\" placeholder=\"firstname\" required id=\"firstname\"> \r\n");
+      out.write("                <label for=\"lastname\">Lastname</label>  \r\n");
+      out.write("                <input type=text\" name=\"lastname\" placeholder=\"lastname\" required id=\"lastname\">\r\n");
+      out.write("                <label for=\"ssn\">Social Security Number</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"ssn\" placeholder=\"social security number\" required id=\"ssn\"> \r\n");
+      out.write("                <label for=\"ssn\">Phone number</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"phone\" placeholder=\"phone\" required id=\"phone\"> \r\n");
+      out.write("                <label for=\"username\">Username</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"username\" placeholder=\"username\" required id=\"username\">  \r\n");
+      out.write("                <label for=\"password\">Password</label>  \r\n");
+      out.write("                <input type=\"password\" name=\"password\" placeholder=\"password\" required id=\"password\">\r\n");
+      out.write("                <label for=\"email\">Email</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"email\" placeholder=\"email\" required id=\"email\"> \r\n");
+      out.write("                <label for=\"birthdate\">Birthdate</label>  \r\n");
+      out.write("                <input type=\"text\" name=\"birthdate\" placeholder=\"yyyy-mm-dd\" required id=\"birthdate\"> \r\n");
       out.write("                    <label for=\"regio\">Region</label>  \r\n");
       out.write("                        <input type=\"text\" name=\"regio\" placeholder=\"region\" id=\"regio\">  \r\n");
       out.write("                      \r\n");
@@ -146,7 +150,7 @@ public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_th_sql_setDataSource_0.setParent(null);
     _jspx_th_sql_setDataSource_0.setVar("source");
     _jspx_th_sql_setDataSource_0.setDriver("com.mysql.jdbc.Driver");
-    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://145.144.241.47:3306/cimsdb");
+    _jspx_th_sql_setDataSource_0.setUrl("jdbc:mysql://145.144.241.206:3306/cimsdb");
     _jspx_th_sql_setDataSource_0.setUser("cims");
     _jspx_th_sql_setDataSource_0.setPassword("cims");
     int _jspx_eval_sql_setDataSource_0 = _jspx_th_sql_setDataSource_0.doStartTag();
@@ -215,11 +219,15 @@ public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
         }
         do {
           out.write("\r\n");
-          out.write("                            INSERT INTO person (personfirstname, personlastname, personusername, personpassword, personemail, personbirthdate) \r\n");
+          out.write("                            INSERT INTO person (personfirstname, personlastname, personssn, personphone, personusername, personpassword, personemail, personbirthdate, persontypeid) \r\n");
           out.write("                            VALUES ('");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.firstname}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("', '");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.lastname}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("', '");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.ssn}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("', '");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.phone}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("', '");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.username}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("', '");
@@ -228,7 +236,7 @@ public final class register_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.email}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("', '");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${param.birthdate}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-          out.write("', 1);\r\n");
+          out.write("', 2);\r\n");
           out.write("                        ");
           int evalDoAfterBody = _jspx_th_sql_update_0.doAfterBody();
           if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)

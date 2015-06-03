@@ -20,37 +20,38 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+
+        <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
+                           url="jdbc:mysql://145.144.241.206:3306/cimsdb"
+                           user="cims"  password="cims"/>
+
     </head>
     <body>
         <div class="wrapper">
-        <section class="loginform cf">  
-            <form id="login" form action="inlog.jsp" method="post" accept-charset="utf-8">  
-                <img src="resources/img/logo1.png" alt="logo">
-                <h1> Login </h1>
-                   <label for="username">Username</label>  
-                        <input type="text" name="username" placeholder="username" required> 
+            <section class="loginform cf">  
+                <form id="login" form action="inlog.jsp" method="post" accept-charset="utf-8">  
+                    <img src="resources/img/logo1.png" alt="logo">
+                    <h1> Login </h1>
+                    <label for="username">Username</label>  
+                    <input type="text" name="username" placeholder="username" required> 
                     <label for="password">Password</label>  
-                        <input type="password" name="password" placeholder="password" required> 
-                      
-                        <input type="submit" value="Login"> 
-                 
-            </form>  
-        </section>
+                    <input type="password" name="password" placeholder="password" required> 
+
+                    <input type="submit" value="Login"> 
+
+                </form>  
+            </section>
         </div>
 
 
         <c:if test="${param.username != null}">
-
-            <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.47:3306/cimsdb"
-                           user="cims"  password="cims"/>
 
             <sql:query dataSource="${source}" var="data">
                 SELECT * FROM person WHERE personusername = '${param.username}' AND personpassword = '${param.password}'
             </sql:query>
 
             <c:forEach var="persoon" begin="0" items="${data.rows}">
-                <c:if test="${persoon.username == param.username && persoon.password == param.password}">
+                <c:if test="${persoon.personusername == param.username && persoon.personpassword == param.password}">
                     <c:redirect url="homepage.jsp"/>
                 </c:if>
             </c:forEach>
