@@ -150,18 +150,10 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                </button>\r\n");
       out.write("                                <span class=\"visible-xs navbar-brand\">Sidebar menu</span>\r\n");
       out.write("                            </div>\r\n");
-      out.write("                            <div class=\"navbar-collapse collapse sidebar-navbar-collapse\">\r\n");
-      out.write("                                <img src=\"resources/img/logo1.png\" alt=\"logo\">\r\n");
-      out.write("                                <ul class=\"nav navbar-nav\">\r\n");
-      out.write("                                    ");
-      if (_jspx_meth_c_forEach_1(_jspx_page_context))
+      out.write("                            ");
+      if (_jspx_meth_c_if_4(_jspx_page_context))
         return;
       out.write("\r\n");
-      out.write("                                        ");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.setAttribute(\"HuidigIncidentSwitch\", false)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(";\r\n");
-      out.write("                                </ul>\r\n");
-      out.write("                            </div><!--/.nav-collapse -->\r\n");
       out.write("                        </div>\r\n");
       out.write("                    </div>\r\n");
       out.write("                </div>\r\n");
@@ -200,7 +192,7 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            </div>\r\n");
       out.write("                        </div>\r\n");
       out.write("\r\n");
-      out.write("                        <!-- Controls -->\r\n");
+      out.write("                        <!-- Controls carousel-->\r\n");
       out.write("                        <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\r\n");
       out.write("                            <span class=\"icon-prev\"></span>\r\n");
       out.write("                        </a>\r\n");
@@ -208,7 +200,17 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <span class=\"icon-next\"></span>\r\n");
       out.write("                        </a>\r\n");
       out.write("                </div>\r\n");
-      out.write("\r\n");
+      out.write("                                \r\n");
+      out.write("                                \r\n");
+      out.write("                            <!-- Combobox -->\r\n");
+      out.write("                            <select id=\"region\" onchange=\"comboChange()\">\r\n");
+      out.write("                                    <option value=\"1\">Groningen</option>\r\n");
+      out.write("                                    <option value=\"2\">Noord-Brabant</option>\r\n");
+      out.write("                                    <option value=\"3\">Limburg</option>\r\n");
+      out.write("                                    <option value=\"4\">Overijssel</option>\r\n");
+      out.write("                                </select>\r\n");
+      out.write("                                <p id=\"demo\"></p>\r\n");
+      out.write("                                \r\n");
       out.write("                <!-- jQuery -->\r\n");
       out.write("                <script src=\"js/jquery.js\"></script>\r\n");
       out.write("\r\n");
@@ -236,17 +238,31 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        }\r\n");
       out.write("                    }\r\n");
       out.write("                </script>\r\n");
-      out.write("<script>\r\n");
-      out.write("    function logout()\r\n");
+      out.write("    <script>\r\n");
+      out.write("        function logout()\r\n");
       out.write("\r\n");
-      out.write("    {\r\n");
+      out.write("        {\r\n");
       out.write("        ");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.removeAttribute(\"User\")}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(";\r\n");
       out.write("        window.location = \"homepage.jsp\";\r\n");
       out.write("        \r\n");
-      out.write("    }\r\n");
-      out.write("</script>\r\n");
+      out.write("        }\r\n");
+      out.write("    </script>\r\n");
+      out.write("    \r\n");
+      out.write("     <script>\r\n");
+      out.write("        function comboChange()\r\n");
+      out.write("\r\n");
+      out.write("        {\r\n");
+      out.write("        ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.setAttribute(\"RegioOn\")}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write(";\r\n");
+      out.write("        var selectedRegion = document.getElementById(\"region\").value;\r\n");
+      out.write("        document.getElementById(\"demo\").innerHTML = \"You selected: \" + selectedRegion;\r\n");
+      out.write("        window.location = \"homepage.jsp\";\r\n");
+      out.write("        }\r\n");
+      out.write("    </script>\r\n");
+      out.write("\r\n");
       out.write("\r\n");
       out.write("                </body>\r\n");
       out.write("\r\n");
@@ -611,14 +627,53 @@ public final class homepage_jsp extends org.apache.jasper.runtime.HttpJspBase
     return false;
   }
 
-  private boolean _jspx_meth_c_forEach_1(PageContext _jspx_page_context)
+  private boolean _jspx_meth_c_if_4(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:if
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_4 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_4.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_4.setParent(null);
+    _jspx_th_c_if_4.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.getAttribute('RegionOn')== null}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_4 = _jspx_th_c_if_4.doStartTag();
+    if (_jspx_eval_c_if_4 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+      do {
+        out.write("\r\n");
+        out.write("                            <div class=\"navbar-collapse collapse sidebar-navbar-collapse\">\r\n");
+        out.write("                                <img src=\"resources/img/logo1.png\" alt=\"logo\">\r\n");
+        out.write("                                <ul class=\"nav navbar-nav\">\r\n");
+        out.write("                                    ");
+        if (_jspx_meth_c_forEach_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_if_4, _jspx_page_context))
+          return true;
+        out.write("\r\n");
+        out.write("                                        ");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.session.setAttribute(\"HuidigIncidentSwitch\", false)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write(";\r\n");
+        out.write("                                </ul>\r\n");
+        out.write("                            </div><!--/.nav-collapse -->\r\n");
+        out.write("                            ");
+        int evalDoAfterBody = _jspx_th_c_if_4.doAfterBody();
+        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+          break;
+      } while (true);
+    }
+    if (_jspx_th_c_if_4.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_4);
+      return true;
+    }
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_4);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_forEach_1(javax.servlet.jsp.tagext.JspTag _jspx_th_c_if_4, PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:forEach
     org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_1 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items_begin.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
     _jspx_th_c_forEach_1.setPageContext(_jspx_page_context);
-    _jspx_th_c_forEach_1.setParent(null);
+    _jspx_th_c_forEach_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_if_4);
     _jspx_th_c_forEach_1.setVar("coords");
     _jspx_th_c_forEach_1.setBegin(0);
     _jspx_th_c_forEach_1.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${data.rows}", java.lang.Object.class, (PageContext)_jspx_page_context, null));

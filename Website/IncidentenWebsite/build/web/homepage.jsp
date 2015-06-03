@@ -102,6 +102,7 @@
                                 </button>
                                 <span class="visible-xs navbar-brand">Sidebar menu</span>
                             </div>
+                            <c:if test="${pageContext.session.getAttribute('RegionOn')== null}" >
                             <div class="navbar-collapse collapse sidebar-navbar-collapse">
                                 <img src="resources/img/logo1.png" alt="logo">
                                 <ul class="nav navbar-nav">
@@ -119,6 +120,7 @@
                                         ${pageContext.session.setAttribute("HuidigIncidentSwitch", false)};
                                 </ul>
                             </div><!--/.nav-collapse -->
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -157,7 +159,7 @@
                             </div>
                         </div>
 
-                        <!-- Controls -->
+                        <!-- Controls carousel-->
                         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                             <span class="icon-prev"></span>
                         </a>
@@ -165,7 +167,17 @@
                             <span class="icon-next"></span>
                         </a>
                 </div>
-
+                                
+                                
+                            <!-- Combobox -->
+                            <select id="region" onchange="comboChange()">
+                                    <option value="1">Groningen</option>
+                                    <option value="2">Noord-Brabant</option>
+                                    <option value="3">Limburg</option>
+                                    <option value="4">Overijssel</option>
+                                </select>
+                                <p id="demo"></p>
+                                
                 <!-- jQuery -->
                 <script src="js/jquery.js"></script>
 
@@ -174,9 +186,9 @@
 
                 <!-- Script to Activate the Carousel -->
                 <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    });
+                    $('.carousel').carousel({
+                        interval: 5000 //changes the speed
+                        });
                 </script>  
 
 
@@ -192,16 +204,33 @@
                             location.reload();
                         }
                     }
-                </script>
-<script>
-    function logout()
+         
+              </script>
+              
+              <!-- Logout -->
+    <script>
+        function logout()
 
-    {
+        {
         ${pageContext.session.removeAttribute("User")};
         window.location = "homepage.jsp";
         
-    }
-</script>
+        }
+    </script>
+    
+    
+    <!-- OnchangeCombo -->
+     <script>
+        function comboChange()
+
+        {
+        ${pageContext.session.setAttribute("RegioOn")};
+        var selectedRegion = document.getElementById("region").value;
+        document.getElementById("demo").innerHTML = "You selected: " + selectedRegion;
+        window.location = "homepage.jsp";
+        }
+    </script>
+
 
                 </body>
 
