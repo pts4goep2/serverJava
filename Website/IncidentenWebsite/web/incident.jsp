@@ -8,6 +8,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -34,7 +35,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.233:3306/cimsdb"
+                           url="jdbc:mysql://145.144.242.9:3306/cimsdb"
                            user="cims"  password="cims"/>
 
 
@@ -88,7 +89,7 @@
     <h1> Berichten </h1>
     <c:forEach var="berichten" begin="0" items="${data.rows}">
 
-        <p>${berichten.personid} ${berichten.calamitymessagedate} ${berichten.calamitymessage}</p>
+        <p>Person ID: ${berichten.personid} - ${berichten.calamitymessagedate} ${berichten.calamitymessage}</p>
 
         <section class="loginform cf">  
         </c:forEach>
@@ -104,10 +105,11 @@
     </section>
 
     <c:if test="${param.bericht != null}">
-
-        <%--<sql:update dataSource="${source}" var="data">
-            INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${param.id}', '${sessionScope.user}', '${param.bericht}');
-        </sql:update>--%>
+        
+        <c:set var="now" value="<%=new java.util.Date()%>" />
+        <sql:update dataSource="${source}" var="data">
+            INSERT INTO calamitymessage (calamityid, personid, calamitymessage) VALUES ('${sessionScope.HuidigeCalamiteit[5]}', '2', '${param.bericht}');
+        </sql:update>
 
 
         <c:redirect url="incident.jsp">

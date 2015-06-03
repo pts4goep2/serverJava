@@ -24,12 +24,12 @@
         <title>JSP Page</title>
         
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.233:3306/cimsdb"
+                           url="jdbc:mysql://145.144.242.9:3306/cimsdb"
                            user="cims"  password="cims"/>
     </head>
     <body>
         <div class="wrapper">
-        <section class="loginform cf">  
+        <section class="registerform cf">  
             <form id="register" form action="register.jsp" method="post" accept-charset="utf-8">  
                 <img src="resources/img/logo1.png" alt="logo">
                 <h1> Register </h1>
@@ -48,7 +48,7 @@
                 <label for="email">Email</label>  
                 <input type="text" name="email" placeholder="email" required id="email"> 
                 <label for="birthdate">Birthdate</label>  
-                <input type="text" name="birthdate" placeholder="birthdate" required id="birthdate"> 
+                <input type="text" name="birthdate" placeholder="yyyy-mm-dd" required id="birthdate"> 
                     <label for="regio">Region</label>  
                         <input type="text" name="regio" placeholder="region" id="regio">  
                       
