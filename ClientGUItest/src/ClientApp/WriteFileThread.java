@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientguitest;
+package ClientApp;
 
 import chat.AudioMessage;
 import java.io.BufferedOutputStream;
@@ -60,6 +60,7 @@ public class WriteFileThread implements Runnable
             bos = new BufferedOutputStream(fos);
             bos.write(message.getAudiofile());
             message.setAudiopath(path);
+            message.setAudiofile(null);
             cc.addMessage(message);
         } 
         catch (FileNotFoundException ex) {

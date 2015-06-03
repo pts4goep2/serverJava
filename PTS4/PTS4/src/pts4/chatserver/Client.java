@@ -9,6 +9,7 @@ package pts4.chatserver;
 import chat.AudioMessage;
 import chat.EmergencyUnit;
 import chat.ChatMessage;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,13 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.TargetDataLine;
+
 
 
 
@@ -37,6 +45,9 @@ public class Client implements Runnable
     private Server server;
     private ArrayList<ChatMessage> messages;
     private ObservableList<ChatMessage> observableMessages;
+    private DataOutputStream dataout;
+    private AudioFormat format;
+    private boolean outVoice = false;
     
     public Client(Socket incoming, Server server) throws IOException, ClassNotFoundException
     {
@@ -45,6 +56,7 @@ public class Client implements Runnable
         
         in = new ObjectInputStream(inStream);
         out = new ObjectOutputStream(outStream);
+        dataout = new DataOutputStream(outStream);
         this.unit = (EmergencyUnit) in.readObject();
         System.out.println("Naam: " + unit.getNaam() + " Longitude: " + unit.getLongitude() + " Latidude: " + unit.getLatidude());
         File dir = new File("Opnames\\" + unit.getNaam());
@@ -118,6 +130,12 @@ public class Client implements Runnable
     {
         return this.observableMessages;
     }
+    
+    public void stopStreaming()
+    {
+        outVoice = false;
+    }
+            
 
     @Override
     public void run() 

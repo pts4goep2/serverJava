@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ClientGUItest.jar" size="35763" download="eager" />
+    <jar href="ClientGUItest.jar" size="35878" download="eager" />
     <jar href="lib/javax.json-1.0.2.jar" size="79309" download="eager" />
     <jar href="lib/javax.json-1.0.4.jar" size="85147" download="eager" />
     <jar href="lib/mysql-connector-java-5.1.23-bin.jar" size="827921" download="eager" />

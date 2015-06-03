@@ -7,7 +7,7 @@ package GUI;
 
 import chat.AudioMessage;
 import chat.ChatMessage;
-import clientguitest.Administratie;
+import ClientApp.Administratie;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

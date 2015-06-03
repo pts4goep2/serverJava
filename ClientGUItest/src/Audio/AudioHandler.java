@@ -125,22 +125,5 @@ public class AudioHandler
         
         /* Again for simplicity, we've hardcoded the audio filetype, too.*/
         targetType = AudioFileFormat.Type.WAVE;
-//        try
-//        {
-//            if(outputFile.exists())
-//            {
-//                outputFile.delete();
-//                
-//                outputFile.createNewFile();
-//            }
-//            else
-//            {
-//                outputFile.createNewFile();
-//            }
-//        }
-//        catch(IOException ex)
-//        {
-//            Logger.getLogger(AudioHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }

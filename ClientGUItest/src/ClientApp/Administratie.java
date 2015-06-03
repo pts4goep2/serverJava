@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package clientguitest;
+package ClientApp;
 
 import Audio.AudioHandler;
 import CommunicationClient.ComManager;
@@ -27,6 +27,9 @@ public class Administratie implements MessageListener
     private ComManager commanager;
     private MessageBuilder mBuilder;
     private boolean found;
+    private int personid;
+    private int persontypeid;
+    private boolean configurator;
     
     private Administratie()
     {
@@ -50,12 +53,19 @@ public class Administratie implements MessageListener
     public boolean loginEmergencyService(String username, String password)
     {
         commanager.addMessage(mBuilder.buildLoginMessage(username, password));
-//        while(!found)
-//        {
-//            
-//        }
+        MessageBuilder mb = new MessageBuilder();
+        Message message = mb.buildLoginMessage(username, password);
+        commanager.sendMessage(message);
+        while(!found)
+        {
+            
+        }
+        if(personid != 0)
+        {
+            return true;
+        }
         found = false;
-        return true;
+        return false;
     }
     
     public static Administratie getInstance()
@@ -95,9 +105,9 @@ public class Administratie implements MessageListener
     
     private void readLoginResponse(Message message)
     {
-        int personid = 0;
-        int persontypeid = 0;
-        boolean configurator = false;
+        personid = 0;
+        persontypeid = 0;
+        configurator = false;
 
         StringReader reader = new StringReader(message.getText());
         JsonParser parser = Json.createParser(reader);
@@ -141,9 +151,7 @@ public class Administratie implements MessageListener
         switch (message.getType()) {
             case MessageBuilder.LoginReply:
                 System.out.println(message.getText());
-                //readLoginResponse(message);
-                
-                //setChatClient(username, type);
+                readLoginResponse(message);
                 break;
 
             default:

@@ -55,7 +55,9 @@ public class WriteFileThread implements Runnable
             bos = new BufferedOutputStream(fos);
             bos.write(message.getAudiofile());
             message.setAudiopath(path);
+            message.setAudiofile(null);
             client.addMessageToObservable(message);
+            
         } 
         catch (FileNotFoundException ex) {
             Logger.getLogger(WriteFileThread.class.getName()).log(Level.SEVERE, null, ex);

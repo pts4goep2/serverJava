@@ -6,8 +6,6 @@
 package Audio;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.Thread.State;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
@@ -125,22 +123,5 @@ public class AudioHandler
         
         /* Again for simplicity, we've hardcoded the audio filetype, too.*/
         targetType = AudioFileFormat.Type.WAVE;
-//        try
-//        {
-//            if(outputFile.exists())
-//            {
-//                outputFile.delete();
-//                
-//                outputFile.createNewFile();
-//            }
-//            else
-//            {
-//                outputFile.createNewFile();
-//            }
-//        }
-//        catch(IOException ex)
-//        {
-//            Logger.getLogger(AudioHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }

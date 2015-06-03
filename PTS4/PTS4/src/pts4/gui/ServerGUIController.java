@@ -7,7 +7,6 @@ package pts4.gui;
 
 import chat.AudioMessage;
 import chat.ChatMessage;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -62,18 +59,9 @@ public class ServerGUIController extends AnchorPane implements Initializable {
     @FXML
     public void btnChat_Click()
     {
-        if(!audiomessage)
-        {
-            String bericht = input.getText();
-            input.clear();
-            server.sendMessage(new ChatMessage(bericht, "Meldkamer", communicator));
-        }
-        else
-        {
-            input.clear();
-            server.sendAudioMessage(communicator);
-            audiomessage = false;
-        }
+        String bericht = input.getText();
+        input.clear();
+        server.sendMessage(new ChatMessage(bericht, "Meldkamer", communicator));        
     }
     
     @FXML
@@ -108,9 +96,8 @@ public class ServerGUIController extends AnchorPane implements Initializable {
             timer.purge();
             timer.cancel();
             teller = 0;
-            input.setText("Druk op send om het audiobericht te versturen");
+            server.sendAudioMessage(communicator);
             lbTeller.setText(String.valueOf(teller));
-            audiomessage = true;
         }
     }
     

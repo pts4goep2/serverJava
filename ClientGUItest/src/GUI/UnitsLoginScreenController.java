@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import clientguitest.Administratie;
+import ClientApp.Administratie;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
