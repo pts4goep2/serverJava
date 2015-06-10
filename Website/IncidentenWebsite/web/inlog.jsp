@@ -22,7 +22,7 @@
         <title>JSP Page</title>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.206:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.205:3306/cimsdb"
                            user="cims"  password="cims"/>
 
     </head>
