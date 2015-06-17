@@ -26,19 +26,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
         <title>JSP Page</title>
 
 
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="cache-control" content="no-cache">
-        <meta http-equiv="expires" content="-1">  
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta http-equiv="cache-control" content="no-cache"/>
+        <meta http-equiv="expires" content="-1"/>  
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.205:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.80:3306/cimsdb"
                            user="cims"  password="cims"/>
 
         <c:if test="${sessionScope.regioOn == null}">
@@ -128,6 +128,7 @@
                                 <sql:query dataSource="${source}" var="data">
                                     SELECT * FROM calamity WHERE regionid = '${pageContext.session.getValue("regioValue")}';
                                 </sql:query>
+                                    
                                 <div class="navbar-collapse collapse sidebar-navbar-collapse">
                                 <img src="resources/img/logo1.png" alt="logo">
                                 <ul class="nav navbar-nav">
@@ -195,8 +196,8 @@
                                 
                                 
                             <!-- Combobox -->                
-                            Filter op regio <form id="region_action" form action="homepage.jsp" method="post" accept-charset="utf-8">  
-                <input type="submit" value="Filter" onclick="comboChange()"> 
+                            Filter op regio <form id="region_action"  method="post" accept-charset="utf-8">  
+                            <input type="submit" onclick="comboChange()"> 
                             <select id="region">
                                     <option value="1">Woegaarden</option>
                                     <option value="2">Tilburg</option>
@@ -204,6 +205,10 @@
                                     <option value="4">Woerden</option>
                                 </select>
                             </form>
+            
+                            <p id="test"></p>
+
+        
              
                 <!-- jQuery -->
                 <script src="js/jquery.js"></script>
@@ -241,13 +246,13 @@
         ${pageContext.session.removeAttribute("User")};
         window.location = "homepage.jsp";
         } 
-        
+   
         function comboChange()
         {
-        ${pageContext.session.setAttribute("regioOn", "On")};
-        var combo = document.getElementById("region_action");
-        var selectedCombo = combo.options[combo.selectedIndex -1];
-        ${pageContext.session.setAttribute("regioValue", selectedCombo)};
+        ${pageContext.session.setAttribute("regioOn", "On")};     
+        var combo = document.getElementById("region").value;
+        document.getElementById("test").innerHTML = combo;
+        ${pageContext.session.setAttribute("regioValue", combo)};
         }
     </script>
 

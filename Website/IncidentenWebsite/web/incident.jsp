@@ -35,7 +35,7 @@
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.240.205:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.80:3306/cimsdb"
                            user="cims"  password="cims"/>
 
 
@@ -74,7 +74,7 @@
     <div id = "map-canvas" style = "height:300px; width:500px" > </div>
 </head>
 
-<body >
+<body>
     <h1> ${sessionScope.HuidigeCalamiteit[2]}</h1>
     <p> ${sessionScope.HuidigeCalamiteit[3]}   </p>
     <p> Gevarenniveau: ${sessionScope.HuidigeCalamiteit[4]} </p>

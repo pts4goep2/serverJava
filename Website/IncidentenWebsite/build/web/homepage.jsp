@@ -26,24 +26,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
         <title>JSP Page</title>
 
 
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="cache-control" content="no-cache">
-        <meta http-equiv="expires" content="-1">  
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta http-equiv="cache-control" content="no-cache"/>
+        <meta http-equiv="expires" content="-1"/>  
         <script
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
         <sql:setDataSource var="source" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://145.144.241.206:3306/cimsdb"
+                           url="jdbc:mysql://145.144.240.80:3306/cimsdb"
                            user="cims"  password="cims"/>
 
+        <c:if test="${sessionScope.regioOn == null}">
         <sql:query dataSource="${source}" var="data">
             SELECT * FROM calamity;
         </sql:query>
+            </c:if>
 
 
     </head>
@@ -85,6 +87,7 @@
             <form id="Logout" form action="homepage.jsp" method="post" accept-charset="utf-8">  
                 <input type="submit" value="Logout" onclick="logout()"> 
                 <p>Ingelogd: <c:out value="${sessionScope.User}"/></p>
+            </form>
             </c:if>
 
 
@@ -102,8 +105,31 @@
                                 </button>
                                 <span class="visible-xs navbar-brand">Sidebar menu</span>
                             </div>
-                            <c:if test="${pageContext.session.getAttribute('RegionOn')== null}" >
+                            <c:if test="${pageContext.session.getAttribute('regioOn')== null}" >
                             <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                                <img src="resources/img/logo1.png" alt="logo">
+                                <ul class="nav navbar-nav">
+                                    <c:forEach var="coords" begin="0" items="${data.rows}">            
+                                        <c:url value="/incident.jsp" var="completeURL">
+                                            <c:param name="name" value="${coords.calamityname}"/>
+                                            <c:param name="description" value="${coords.calamitydescription}"/>
+                                            <c:param name="goe_lat" value="${coords.calamitylatitude}"/>
+                                            <c:param name="goe_long" value="${coords.calamitylongtitude}"/>
+                                            <c:param name="danger" value="${coords.calamitydanger}"/>
+                                            <c:param name="id" value="${coords.calamityid}"/>
+                                        </c:url>
+                                        <li><a href="${completeURL}">${coords.calamityname}</a></li>
+                                        </c:forEach>
+                                        ${pageContext.session.setAttribute("HuidigIncidentSwitch", false)};
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                            </c:if>
+                            <c:if test="${sessionScope.regioOn != null}">
+                                <sql:query dataSource="${source}" var="data">
+                                    SELECT * FROM calamity WHERE regionid = '${pageContext.session.getValue("regioValue")}';
+                                </sql:query>
+                                    
+                                <div class="navbar-collapse collapse sidebar-navbar-collapse">
                                 <img src="resources/img/logo1.png" alt="logo">
                                 <ul class="nav navbar-nav">
                                     <c:forEach var="coords" begin="0" items="${data.rows}">            
@@ -169,15 +195,21 @@
                 </div>
                                 
                                 
-                            <!-- Combobox -->
-                            <select id="region" onchange="comboChange()">
-                                    <option value="1">Groningen</option>
-                                    <option value="2">Noord-Brabant</option>
-                                    <option value="3">Limburg</option>
-                                    <option value="4">Overijssel</option>
+                            <!-- Combobox -->                
+                            Filter op regio <form id="region_action"  method="post" accept-charset="utf-8">  
+                            <input type="submit" onclick="comboChange()"> 
+                            <select id="region">
+                                    <option value="1">Woegaarden</option>
+                                    <option value="2">Tilburg</option>
+                                    <option value="3">Den Haag</option>
+                                    <option value="4">Woerden</option>
                                 </select>
-                                <p id="demo"></p>
-                                
+                            </form>
+            
+                            <p id="test"></p>
+
+        
+             
                 <!-- jQuery -->
                 <script src="js/jquery.js"></script>
 
@@ -210,27 +242,19 @@
               <!-- Logout -->
     <script>
         function logout()
-
         {
         ${pageContext.session.removeAttribute("User")};
         window.location = "homepage.jsp";
-        
-        }
-    </script>
-    
-    
-    <!-- OnchangeCombo -->
-     <script>
+        } 
+   
         function comboChange()
-
         {
-        ${pageContext.session.setAttribute("RegioOn")};
-        var selectedRegion = document.getElementById("region").value;
-        document.getElementById("demo").innerHTML = "You selected: " + selectedRegion;
-        window.location = "homepage.jsp";
+        ${pageContext.session.setAttribute("regioOn", "On")};     
+        var combo = document.getElementById("region").value;
+        document.getElementById("test").innerHTML = combo;
+        ${pageContext.session.setAttribute("regioValue", combo)};
         }
     </script>
-
 
                 </body>
 
