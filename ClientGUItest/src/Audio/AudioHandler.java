@@ -24,7 +24,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
 /**
- *
+ * Klasse om audio op te nemen en op te slaan in een byte[]
  * @author Leo
  */
 public class AudioHandler 
@@ -56,38 +56,46 @@ public class AudioHandler
             file.mkdir();
         }
     }
-
+    /**
+     * 
+     * @return het pad van het bestand dat zojuist is opgenomen.
+     */
     public String getPath() 
     {
         return path;
     }
-
-    public void setAudiofile(byte[] audiofile) 
-    {
-        this.audiofile = audiofile;
-    }
-
+    /**
+     * 
+     * @return de audiofile die is opgenomen als byte[]
+     */
     public byte[] getAudiofile() 
     {
         return audiofile;
     }
-    
+    /**
+     * Een methode die de systeemtijd ophaald.
+     * @return een string met de systeem datum en tijd op ms nauwkeurig.
+     */
     private String getSystemTimeAsString()
     {
         Date now = new Date();
         String strDate = sdfDate.format(now);
         return strDate;
     }
-    
+    /**
+     * Methode die het opnemen van audio start. De microfoon wordt aangeroepen 
+     * en de input wordt naar een bestand geschreven.
+     */
     public void startRecording()
-    {
-        path = "Opnames/opname " + getSystemTimeAsString() + ".wav";
-        outputFile = new File(path);
+    {        
         initFile();
         recorder = new RecordingThread(targetLine, targetType, outputFile);
         fut = threadpool.submit(recorder);
     }
-    
+    /**
+     * Stopt het opnemen van de audio en slaat het bestand in format van een
+     * byte[] zodat dit kan worden meegegeven in een audiomessage.
+     */
     public void stopRecording()
     {
         recorder.stopRecording();
@@ -97,7 +105,7 @@ public class AudioHandler
         }
         try 
         {
-            setAudiofile(fut.get());
+            this.audiofile = fut.get();
         } 
         catch (InterruptedException ex) 
         {
@@ -108,10 +116,15 @@ public class AudioHandler
             Logger.getLogger(AudioHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * Maakt een nieuw bestand aan waarin de opname kan worden gestopt en zorgt 
+     * ervoor dat de microfoon wordt aangeroepen en als input kan worden gebruikt.
+     */
     private void initFile()
     {
         targetLine = null;
+        path = "Opnames/opname " + getSystemTimeAsString() + ".wav";
+        outputFile = new File(path);
         try 
         {
             //open de audiolijn zodat er kan worden opgenomen.

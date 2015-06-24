@@ -9,8 +9,8 @@ package CommunicationClient;
 import Protocol.Message;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,15 +21,14 @@ import java.util.logging.Logger;
  */
 public class MessageSenderThread implements Runnable {
 
-    private ReadWrite rw;
-    
+    private ObjectOutputStream oos;
     private boolean running = true;
     
     private List<Message> toSend;
     
-    public MessageSenderThread(ReadWrite rw) {
-        this.rw = rw;
-        this.toSend = new ArrayList<>();
+    public MessageSenderThread(ObjectOutputStream oos) {
+        this.oos = oos;
+        this.toSend = Collections.synchronizedList(new ArrayList<>());
     }
     
     public void addMessage(Message message)
@@ -47,8 +46,12 @@ public class MessageSenderThread implements Runnable {
         while(running){
             if (toSend.size() > 0)
             { 
-                this.rw.sendMessage(this.toSend.get(0));
-                this.toSend.remove(0);
+                try {
+                    this.oos.writeObject(this.toSend.get(0));
+                    this.toSend.remove(0);
+                } catch (IOException ex) {
+                    Logger.getLogger(MessageSenderThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
