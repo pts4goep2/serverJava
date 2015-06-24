@@ -1,14 +1,10 @@
 package Protocol;
 
-import FileTransfer.FileManager;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.*;
 
 
@@ -55,10 +51,6 @@ public class MessageBuilder
     public static final String InsertMessage = "insertmessage"; //
     public static final String RetrieveMessages = "retrievemessages"; // 
     public static final String RetrieveMessagesReply = "retrievemessagesreply"; //
-    public static final String RetrieveCalamityWithName = "retrievecalamitywithname";
-    public static final String RetrieveCalamityWithNameReply = "retrievecalamitywithnamereply";
-    public static final String RetrievePersonIdFromName = "retrievepersonidfromname";
-    public static final String RetrievePersonIdFromNameReply = "'retrievepersonidfromnamereply";
     
     private static final String token = "-";
     
@@ -75,30 +67,6 @@ public class MessageBuilder
     {
         
     }  
-    
-    public Message buildRetrievePersonIdFromName(String name)
-    {
-        JsonObjectBuilder jb = Json.createObjectBuilder();
-        
-        jb.add("username", name);
-            
-        JsonObject jo = jb.build();
-        
-        Message message = new Message();
-        message.setText(jo.toString());
-        message.setType(RetrievePersonIdFromName);
-        
-        return message;
-    }
-    
-    public Message buildRetrievePersonIdFromNameReply(String json)
-    {
-        Message message = new Message();
-        message.setText(json);
-        message.setType(RetrievePersonIdFromNameReply);
-        
-        return message;
-    }
     
     public Message buildRetrieveCalamityInformation(int calamityid)
     {
@@ -164,11 +132,11 @@ public class MessageBuilder
         return message;
     }
 
-    public Message buildInsertMessage(int personid, int receiverid, String messageS, File file)
+    public Message buildInsertMessage(int senderid, int receiverid, String messageS, File file)
     {
         JsonObjectBuilder jb = Json.createObjectBuilder();
         
-        jb.add("personid", personid);
+        jb.add("senderid", senderid);
         jb.add("receiverid", receiverid);
         jb.add("message", messageS);
                        
@@ -177,19 +145,18 @@ public class MessageBuilder
         Message message = new Message();
         message.setText(jo.toString());
         message.setType(InsertMessage);
-        
-//        byte[] bFile = new byte[(int) file.length()];
-//        FileInputStream fis;
-//        try {
-//            fis = new FileInputStream(file);
-//            fis.read(bFile);
-//            fis.close();
-//        }
-//        catch(IOException ex)
-//        {
-//        }
-//
-//        message.setFile(bFile);
+        byte[] bFile = new byte[(int) file.length()];
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(file);
+            fis.read(bFile);
+            fis.close();
+        }
+        catch(IOException ex)
+        {
+        }
+
+        message.setFile(bFile);
         
         return message;
     }
@@ -254,29 +221,6 @@ public class MessageBuilder
         Message message = new Message();
         message.setText(json);
         message.setType(RetrieveCalamityWithIDReply);
-        return message;
-    }
-    
-    public Message buildRetrieveCalamityWithName(String name)
-    {      
-        JsonObjectBuilder jb = Json.createObjectBuilder();
-        
-        jb.add("calamityname", name);
-            
-        JsonObject jo = jb.build();
-        
-        Message message = new Message();
-        message.setText(jo.toString());
-        message.setType(RetrieveCalamityWithName);
-        
-        return message;
-    }
-    
-    public Message buildRetrieveCalamityWithNameReply(String json)
-    {
-        Message message = new Message();
-        message.setText(json);
-        message.setType(RetrieveCalamityWithNameReply);
         return message;
     }
     

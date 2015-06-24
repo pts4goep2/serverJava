@@ -5,8 +5,6 @@
  */
 package ClientApp;
 
-import CommunicationClient.ComManager;
-import CommunicationClient.LogManager;
 import chat.AudioMessage;
 import chat.ChatMessage;
 import java.io.File;
@@ -23,8 +21,6 @@ import javafx.application.Platform;
 import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
 import GUI.ClienttestGUIController;
-import Protocol.Message;
-import Protocol.MessageBuilder;
 import chat.EmergencyUnit;
 import java.util.Random;
 
@@ -43,29 +39,24 @@ public class ChatClient
     private ObservableList<ChatMessage> observableMessages;
     private String ontvanger;
     private Random random;
-    private MessageBuilder mb;
     
-    private ComManager comManager = ComManager.getInstance();
-    private LogManager logManager = LogManager.getInstance();
-    
-    public ChatClient(String user, int type, int persontype)
+    public ChatClient(String user, int type)
     {
         OutputStream outStream = null;
         try 
         {
-            mb = new MessageBuilder();
             clients = new ArrayList<String>();
             random = new Random();
             observableClients = observableList(clients);
             messages = new ArrayList<ChatMessage>();
             observableMessages = observableList(messages);
-            Socket s = new Socket("localhost", 8189);
+            Socket s = new Socket("145.93.34.80", 8189);
             outStream = s.getOutputStream();
             InputStream inStream = s.getInputStream();
 //          Let op: volgorde is van belang!
             out = new ObjectOutputStream(outStream);
             ObjectInputStream in = new ObjectInputStream(inStream);
-            this.unit = new EmergencyUnit(user, type, persontype);
+            this.unit = new EmergencyUnit(user, type);
             unit.setLatidude(generateRandomLatidude());
             unit.setLongitude(generateRandomLongitude());
             out.writeObject(unit);
@@ -82,10 +73,6 @@ public class ChatClient
         {
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }        
-    }
-
-    public String getOntvanger() {
-        return ontvanger;
     }
     
     private double generateRandomLatidude()
@@ -112,9 +99,6 @@ public class ChatClient
     {
         try 
         {
-            Message chat = mb.buildInsertMessage(logManager.getPersonId(), 8, "test", null);
-            comManager.addMessage(chat);
-            
             ChatMessage message = new ChatMessage(bericht, this.unit.getNaam(), ontvanger);
             out.writeObject(message);
             out.flush();

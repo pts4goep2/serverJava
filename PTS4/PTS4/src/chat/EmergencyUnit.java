@@ -13,18 +13,17 @@ import java.io.Serializable;
  */
 public class EmergencyUnit implements Serializable
 {
-    private long serialVersionUID = 9212792848339440618L;
     private String naam;
     private int type;
-    private int personid;
     private double longitude;
     private double latidude;
     
-    public EmergencyUnit(String naam, int type, int personid)
+    public EmergencyUnit(String naam, int type)
     {
         this.naam = naam;
-        this.type = type;     
-        this.personid = personid;
+        this.type = type;
+        this.longitude = longitude;
+        this.latidude = latidude;       
     }
 
     public String getNaam() 
@@ -45,11 +44,6 @@ public class EmergencyUnit implements Serializable
     public double getLatidude() 
     {
         return latidude;
-    }
-
-    public int getPersonid() 
-    {
-        return personid;
     }
 
     public void setLongitude(double longitude) 

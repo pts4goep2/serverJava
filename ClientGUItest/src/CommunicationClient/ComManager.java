@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Merijn
  */
-public class ComManager implements CommMessageListener{
+public class ComManager implements CommMessageListener, ReadWrite{
     
     private Thread sendThread;
     private Thread recieveThread;
@@ -28,7 +28,7 @@ public class ComManager implements CommMessageListener{
     private MessageRecieverThread mrt;
     private MessageSenderThread mst;
     
-    private static final String host = "145.144.240.80";
+    private static final String host = "145.144.241.206";
     private static final int portNumber = 9000;
     private Socket socket;
     
@@ -42,14 +42,15 @@ public class ComManager implements CommMessageListener{
             this.socket = new Socket(host,portNumber);
             this.ois = new ObjectInputStream(this.socket.getInputStream());
             this.oos = new ObjectOutputStream(this.socket.getOutputStream());
+            oos.flush();
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
         
-        this.mrt = new MessageRecieverThread(ois, this);
-        this.mst = new MessageSenderThread(oos);
+        this.mrt = new MessageRecieverThread(this, this);
+        this.mst = new MessageSenderThread(this);
         
         this.sendThread = new Thread(mst);
         this.recieveThread = new Thread(mrt);
@@ -72,7 +73,14 @@ public class ComManager implements CommMessageListener{
         this.mst.addMessage(message);
     }
     
-    
+    @Override
+    public void sendMessage(Message message) {
+        try {
+            this.oos.writeObject(message);
+        } catch (IOException ex) {
+            Logger.getLogger(MessageSenderThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void stopService() 
     {
@@ -93,7 +101,20 @@ public class ComManager implements CommMessageListener{
         }
     }
 
-    
+    @Override
+    public Message readMessage() {
+        try {
+                Message message = null;
+                if ((message = (Message) ois.readObject()) != null) {
+                    return message;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(MessageRecieverThread.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MessageRecieverThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return null;
+    }
     
     private static class ComManagerHolder {
 

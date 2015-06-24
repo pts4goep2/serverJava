@@ -6,7 +6,6 @@
 package GUI;
 
 import ClientApp.Administratie;
-import CommunicationClient.LogManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,8 +71,6 @@ public class UnitsLoginScreenController implements Initializable {
         {
             if(admin.loginEmergencyService(username, tfWachtwoord.getText()) == true)
             {
-                LogManager logman = LogManager.getInstance();
-                logman.insertLog("Log: Login Chat Client By: " + logman.getPersonId());
                 try 
                 {
                     URL location1 = getClass().getResource("clienttestGUI.fxml");

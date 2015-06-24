@@ -7,19 +7,16 @@ package ClientApp;
 
 import Audio.AudioHandler;
 import CommunicationClient.ComManager;
-import CommunicationClient.LogManager;
 import CommunicationClient.MessageListener;
 import Protocol.Message;
 import Protocol.MessageBuilder;
 import java.io.StringReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
 
 /**
- * Singleton klasse die de communicatie regelt tussen de gui en de andere klasses.
+ *
  * @author Leo
  */
 public class Administratie implements MessageListener
@@ -29,66 +26,48 @@ public class Administratie implements MessageListener
     private ChatClient cc;
     private ComManager commanager;
     private MessageBuilder mBuilder;
+    private boolean found;
     private int personid;
     private int persontypeid;
-    private LogManager logmanager;
     private boolean configurator;
     
     private Administratie()
     {
         //database = new SQL();
-        logmanager = LogManager.getInstance();
         handler = new AudioHandler();
         commanager = ComManager.getInstance();
         commanager.addListener(this);
         mBuilder = new MessageBuilder();
     }
-    /**
-     * Zet de ontvanger bij de chatclient om meet te communiceren.
-     * @param naam 
-     */
+
     public void setOntvanger(String naam) 
     {
         this.cc.setOntvanger(naam);
     }  
-    /**
-     * 
-     * @return De chatclient van de administratie klasse.
-     */
+    
     public ChatClient getCc() 
     {
         return cc;
     } 
-    /**
-     * Logt een nieuwe emergencyunit in.
-     * @param username gebruikersnaam van deze user.
-     * @param password wachtwoord van de gebruiker.
-     * @return true als de combinatie van de gebruikersnaam en wachtwoord overeen
-     * komen. False als deze niet overeenkomt.
-     */
+    
     public boolean loginEmergencyService(String username, String password)
     {
         commanager.addMessage(mBuilder.buildLoginMessage(username, password));
-        try 
+        MessageBuilder mb = new MessageBuilder();
+        Message message = mb.buildLoginMessage(username, password);
+        commanager.sendMessage(message);
+        while(!found)
         {
-            Thread.sleep(500);
-        } 
-        catch (InterruptedException ex) 
-        {
-            Logger.getLogger(Administratie.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
-        
         if(personid != 0)
         {
             return true;
         }
-        
+        found = false;
         return false;
     }
-    /**
-     * Maakt een Administratie object aan als deze nog niet bestaat.
-     * @return Een instantie van de Administratie klasse.
-     */
+    
     public static Administratie getInstance()
     {
         if(admin == null)
@@ -97,50 +76,33 @@ public class Administratie implements MessageListener
         }
         return admin;
     }
-    /**
-     * zorgt ervoor dat het opnemen van audio begint.
-     */
+    
     public void startRecordingAudio()
     {
         handler.startRecording();
     }
-    /**
-     * zorgt ervoor dat het opnemen van audio eindigt.
-     */
+    
     public void stopRecordingAudio()
     {
         handler.stopRecording();
     }
-    /**
-     * Maakt een nieuwe chatclient die ervoor zorgt dat communicatie mogelijk is 
-     * tussen de meldkamer en de hulpdiensten.
-     * @param user 
-     */
+    
     public void setChatClient(String user)
     {
-        cc = new ChatClient(user, persontypeid, personid);
+        cc = new ChatClient(user, 1);        
+        cc.setOntvanger(user);
     }
-    /**
-     * Zorgt ervoor dat er een bericht wordt verstuurd naar de huidige ontvanger.
-     * @param bericht dat verstuurd moet worden naar de huidige ontvanger.
-     */
+    
     public void sendMessage(String bericht)
     {
         cc.sendMessage(bericht);
     }
-    /**
-     * Roept een methode aan in de chatclient klasse die ervoor zorgt dat er een 
-     * audiomessage wordt verzonden.
-     */
+    
     public void sendAudioMessage()
     {
         cc.sendAudioMessage(handler.getAudiofile(), handler.getPath());
     }
-    /**
-     * Leest de response uit die wordt ontvangen vannuit het protocol en zorgt
-     * ervoor dat de gebruikers naam en wachtwoord kan worden gecontroleerd.
-     * @param message 
-     */
+    
     private void readLoginResponse(Message message)
     {
         personid = 0;
@@ -156,11 +118,9 @@ public class Administratie implements MessageListener
                 String keyname = parser.getString();
                 event = parser.next();
 
-                switch (keyname) 
-                {
+                switch (keyname) {
                     case "personid":
                         personid = parser.getInt();
-                        logmanager.setPersonId(personid);
                         break;
                     case "persontypeid":
                         persontypeid = parser.getInt();
@@ -180,7 +140,7 @@ public class Administratie implements MessageListener
                 event = parser.next();
             }
         }
-        
+        found = true;
         //hier de code met bovenstaande variabelen
 
     }

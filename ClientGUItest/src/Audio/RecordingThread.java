@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.*;
 
 /**
- * Een calleble die de audioinput die van de microfoon komt naar een bestand schrijft.
+ *
  * @author Leo
  */
 public class RecordingThread implements Callable<byte[]>
@@ -32,20 +32,13 @@ public class RecordingThread implements Callable<byte[]>
         this.outputFile = file;
         this.audioInputStream = new AudioInputStream(line);
     }
-    /**
-     * Stopt de audio input die van de microfoon komt.
-     */
+    
     public void stopRecording()
     {
         line.stop();
         line.close();
     }
-    /**
-     * Methode die de opgenomen audioinput naar een bestand schrijft en uiteindelijk
-     * omzet naar een byte[].
-     * @return het audiobestand in byte[] format.
-     * @throws IOException als er iets fout gaat met het schrijven naar een bestand.
-     */
+
     @Override
     public byte[] call() throws Exception 
     {
@@ -59,7 +52,8 @@ public class RecordingThread implements Callable<byte[]>
             System.out.println("ik stop met schrijven");
             System.out.println("Naar de byte[]");
             audiofile = Files.readAllBytes(outputFile.toPath());
-            System.out.println("En daar voorbij");                                   
+            System.out.println("En daar voorbij");
+                                   
         } 
         catch (IOException ex) 
         {

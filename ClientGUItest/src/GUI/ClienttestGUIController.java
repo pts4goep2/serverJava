@@ -8,10 +8,6 @@ package GUI;
 import chat.AudioMessage;
 import chat.ChatMessage;
 import ClientApp.Administratie;
-import CommunicationClient.ComManager;
-import CommunicationClient.LogManager;
-import Protocol.Message;
-import Protocol.MessageBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -53,8 +49,6 @@ public class ClienttestGUIController implements Initializable
     private boolean pressed;
     private int teller;
     private boolean audiomessage;
-    private LogManager logman;
-    private ComManager comManager;
 
     /**
      * Initializes the controller class.
@@ -62,9 +56,7 @@ public class ClienttestGUIController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        admin = Administratie.getInstance(); 
-        logman = LogManager.getInstance();
-        comManager = ComManager.getInstance();
+        admin = Administratie.getInstance();        
     }
     
     @FXML
@@ -74,7 +66,6 @@ public class ClienttestGUIController implements Initializable
         if(message instanceof AudioMessage)
         {
             AudioMessage audmessage = (AudioMessage) message;
-            logman.insertLog("Log: Audiomessage listend by " + logman.getPersonId());
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(audmessage.getAudiopath()));
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
@@ -87,14 +78,7 @@ public class ClienttestGUIController implements Initializable
     {
         String naam = (String) cbBeschikbareUnits.getSelectionModel().getSelectedItem();
         admin.setOntvanger(naam);
-        
-        //HIER ID OPHALEN
-        MessageBuilder mb = new MessageBuilder();
-        Message retrieve = mb.buildRetrievePersonIdFromName(naam);
-        comManager.addMessage(retrieve);
-        
         addItemListView("[Algemeen]: je stuurt nu berichten naar: " + naam);
-        logman.insertLog("Log: Communicator set by" + logman.getPersonId() + "to " + naam);
     }
     
     @FXML
@@ -105,13 +89,11 @@ public class ClienttestGUIController implements Initializable
            String message = input.getText();
            input.clear();
            admin.sendMessage(message);
-           logman.insertLog("Log: chatmessage send by " + logman.getPersonId() + " to: " + admin.getCc().getOntvanger());
        }
        else
        {
            input.clear();
            admin.sendAudioMessage();
-           logman.insertLog("Log: audiomessage send by: " + logman.getPersonId() + " to: " + admin.getCc().getOntvanger());
            audiomessage = false;
        }
     }
@@ -126,7 +108,6 @@ public class ClienttestGUIController implements Initializable
             admin.startRecordingAudio();
             System.out.println("audio opnemen gestart");
             startTimer();
-            logman.insertLog("Log: Started recording audiomessage " + logman.getPersonId());
         }
         else if(pressed)
         {
@@ -138,7 +119,6 @@ public class ClienttestGUIController implements Initializable
             timer.cancel();
             teller = 0;
             input.setText("druk op send om het audiobericht te versturen");
-            logman.insertLog("Log: Stopped recording audiomessage " + logman.getPersonId());
             lbRecordTimer.setText(String.valueOf(teller));
             audiomessage = true;
         }
